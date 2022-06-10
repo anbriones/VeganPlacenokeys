@@ -1,0 +1,22 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.VeganPlace" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/verde_bannerd</item>
+        <item name="colorPrimaryVariant">@color/verde_horad</item>
+        <item name="colorOnPrimary">@color/whited</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/verde_ciand</item>
+        <item name="colorSecondaryVariant">@color/verde_primaverad</item>
+        <item name="colorOnSecondary">@color/blackd</item>
+
+        <!-- Customize your theme here. -->
+
+    </style>
+
+
+
+
+
+
+</resources>

@@ -1,0 +1,31 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.VeganPlace" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/verde_banner</item>
+        <item name="colorPrimaryVariant">@color/verde_hora</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/verde_cian</item>
+        <item name="colorSecondaryVariant">@color/verde_primavera</item>
+        <item name="colorOnSecondary">@color/black</item>
+
+
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimary</item>
+        <item name="bottomAppBarStyle">@style/Theme.VeganPlace</item>
+        <!-- Customize your theme here. -->
+
+        <!-- toolbar -->
+        <item name="toolbarStyle">@style/Widget.MaterialComponents.Toolbar.PrimarySurface</item>
+        <item name="actionOverflowButtonStyle" tools:targetApi="l">?attr/colorPrimary</item>
+        <item name="toolbarNavigationButtonStyle" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="android:navigationBarColor" tools:targetApi="l">?attr/colorPrimary</item>
+        <!-- menús -->
+        <item name="popupTheme" tools:targetApi="l">?attr/colorOnSecondary</item>
+    </style>
+
+
+
+
+</resources>

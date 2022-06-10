@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="verde_banner">#66bb6a</color>
+    <color name="verde_hora">#388e3c</color>
+    <color name="fondo_logo">#d3f0d2</color>
+    <color name="verde_cian">#00FA9A</color>
+    <color name="verde_primavera">#00FF7F</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+
+    <color name="busqueda">#FFFFFFFF</color>
+    <color name="busquedan">#FF000000</color>
+    <color name="verde_bannerd">#196f3d </color>
+    <color name="verde_horad">  #1e8449  </color>
+    <color name="fondo_logod">#d3f0d2</color>
+    <color name="verde_ciand"> #117a65 </color>
+    <color name="verde_primaverad">#1d8348</color>
+    <color name="blackd">#FF000000</color>
+    <color name="whited">#FFFFFFFF</color>
+</resources>
