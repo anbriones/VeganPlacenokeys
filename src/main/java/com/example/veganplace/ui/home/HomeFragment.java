@@ -12,6 +12,7 @@ import com.example.veganplace.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -26,6 +27,14 @@ public  class HomeFragment extends Fragment implements OnMapReadyCallback {
                              ViewGroup container, Bundle savedInstanceState) {
 
     View inflatedView = inflater.inflate(R.layout.fragment_home, container, false);
+/*
+        // Gets the MapView from the XML layout and creates it
+        mMapView = (MapView) inflatedView.findViewById(R.id.maps);
+        mMapView.onCreate(savedInstanceState);
+
+        // Set the map ready callback to receive the GoogleMap object
+        mMapView.getMapAsync(this);
+        */
 
         return inflatedView;
 
@@ -36,7 +45,7 @@ public  class HomeFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
+        MapsInitializer.initialize(this.getActivity());
         // Add a marker in Sydney and move the camera
         LatLng caceres = new LatLng(39.4762, -6.37076);
         mMap.addMarker(new MarkerOptions().position(caceres).title("Marker in Cáceres"));

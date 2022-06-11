@@ -1,19 +1,34 @@
 package com.example.veganplace.ui.recetas;
 
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class RecetasViewModel extends ViewModel {
+import com.example.veganplace.data.modelrecetas.Recipe;
+import com.example.veganplace.data.roomdatabase.RecetasRepository;
 
-    private MutableLiveData<String> mText;
+import java.util.List;
 
-    public RecetasViewModel() {
-        mText = new MutableLiveData<>();
-        mText.setValue("This is recetas fragment");
+public class RecetasViewModel extends ViewModel  {
+
+    private final RecetasRepository mrecetasrepository;
+    private final LiveData<List<Recipe>> mrecetas;
+
+
+    public RecetasViewModel(RecetasRepository recetasrepository) {
+        mrecetasrepository=recetasrepository;
+        mrecetas=mrecetasrepository.getrecetas();
+
     }
 
-    public LiveData<String> getText() {
-        return mText;
+
+
+    public LiveData<List<Recipe>> getRecetas() {
+        return mrecetas;
     }
+
+
+
+
 }
+
+
