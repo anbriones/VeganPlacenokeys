@@ -16,7 +16,7 @@ public class Recipe implements Serializable {
     @SerializedName("id")
     @Expose
     @PrimaryKey(autoGenerate = true)
-    private long id;
+    private Integer id;
     @SerializedName("uri")
     @Expose
     private String uri;
@@ -43,7 +43,7 @@ public class Recipe implements Serializable {
     private String shareAs;
     @SerializedName("yield")
     @Expose
-    private Integer yield;
+    private double yield;
     @SerializedName("dietLabels")
     @Expose
     @Ignore
@@ -66,19 +66,19 @@ public class Recipe implements Serializable {
     private List<Ingredient> ingredients = null;
     @SerializedName("calories")
     @Expose
-    private Integer calories;
+    private double calories;
     @SerializedName("glycemicIndex")
     @Expose
-    private Integer glycemicIndex;
+    private double glycemicIndex;
     @SerializedName("totalCO2Emissions")
     @Expose
-    private Integer totalCO2Emissions;
+    private double totalCO2Emissions;
     @SerializedName("co2EmissionsClass")
     @Expose
     private String co2EmissionsClass;
     @SerializedName("totalWeight")
     @Expose
-    private Integer totalWeight;
+    private double totalWeight;
     @SerializedName("cuisineType")
     @Expose
     @Ignore
@@ -104,9 +104,9 @@ public class Recipe implements Serializable {
     @Ignore
     private List<Digest> digest = null;
 
-    public long getId() {return id;    }
+    public Integer getId() {return id;    }
 
-    public void setId(long id) { this.id = id;   }
+    public void setId(Integer id) { this.id = id;   }
 
 
     public String getUri() {
@@ -165,11 +165,11 @@ public class Recipe implements Serializable {
         this.shareAs = shareAs;
     }
 
-    public Integer getYield() {
+    public double getYield() {
         return yield;
     }
 
-    public void setYield(Integer yield) {
+    public void setYield(double yield) {
         this.yield = yield;
     }
 
@@ -213,27 +213,27 @@ public class Recipe implements Serializable {
         this.ingredients = ingredients;
     }
 
-    public Integer getCalories() {
+    public double getCalories() {
         return calories;
     }
 
-    public void setCalories(Integer calories) {
+    public void setCalories(double calories) {
         this.calories = calories;
     }
 
-    public Integer getGlycemicIndex() {
+    public double getGlycemicIndex() {
         return glycemicIndex;
     }
 
-    public void setGlycemicIndex(Integer glycemicIndex) {
+    public void setGlycemicIndex(double glycemicIndex) {
         this.glycemicIndex = glycemicIndex;
     }
 
-    public Integer getTotalCO2Emissions() {
+    public double getTotalCO2Emissions() {
         return totalCO2Emissions;
     }
 
-    public void setTotalCO2Emissions(Integer totalCO2Emissions) {
+    public void setTotalCO2Emissions(double totalCO2Emissions) {
         this.totalCO2Emissions = totalCO2Emissions;
     }
 
@@ -245,11 +245,11 @@ public class Recipe implements Serializable {
         this.co2EmissionsClass = co2EmissionsClass;
     }
 
-    public Integer getTotalWeight() {
+    public double getTotalWeight() {
         return totalWeight;
     }
 
-    public void setTotalWeight(Integer totalWeight) {
+    public void setTotalWeight(double totalWeight) {
         this.totalWeight = totalWeight;
     }
 

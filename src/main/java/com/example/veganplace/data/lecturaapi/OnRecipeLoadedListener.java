@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface OnRecipeLoadedListener {
     public void onRecipeLoaded(List<Recipe> recetas);
+
 }

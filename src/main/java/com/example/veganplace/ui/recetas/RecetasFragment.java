@@ -17,24 +17,19 @@ import com.example.veganplace.AppContainer;
 import com.example.veganplace.InjectorUtils;
 import com.example.veganplace.MyApplication;
 import com.example.veganplace.R;
+import com.example.veganplace.data.modelrecetas.Ingredient;
 import com.example.veganplace.data.modelrecetas.Recipe;
-import com.example.veganplace.data.roomdatabase.RecetasRepository;
 
 import java.util.ArrayList;
 
 public class RecetasFragment extends Fragment implements AdapterRecetas.OnListInteractionListener{
-    private static final String LOG_TAG = RecetasFragment.class.getSimpleName();
-    private RecetasViewModel factoryViewModel;
-
-    private RecetasRepository mRepository;
-
-
     private RecyclerView recyclerView;
     private AdapterRecetas mAdapter;
-    private RecyclerView.LayoutManager layoutManager;
-
     AppContainer appContainer;
     RecetasViewModel mViewModel;
+    private RecyclerView.LayoutManager layoutManager;
+
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
@@ -46,30 +41,27 @@ public class RecetasFragment extends Fragment implements AdapterRecetas.OnListIn
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
-        mAdapter = new AdapterRecetas(new ArrayList<Recipe>(), this);
+        mAdapter = new AdapterRecetas(new ArrayList<Recipe>(), new ArrayList<Ingredient>(),this);
         recyclerView.setAdapter(mAdapter);
         RecetasViewModelFactory factory = InjectorUtils.provideMainActivityViewModelFactoryhome(this.getActivity().getApplicationContext());
         appContainer = ((MyApplication) this.getActivity().getApplication()).appContainer;
         mViewModel = new ViewModelProvider(this, appContainer.factoryrecetas).get(RecetasViewModel.class);
 
 
-        mViewModel.getRecetas().observe(this.getActivity(), alimentos -> {
-            mAdapter.swap(alimentos);
-        });
+        mViewModel.getRecetas().observe(this.getActivity(), recetas -> {
+            mAdapter.swap(recetas);
 
+        });
+        mViewModel.getMingredientes().observe(this.getActivity(), ingredients -> {
+                    mAdapter.swap2(ingredients);
+                });
 
         return root;
     }
 
 
 
-    @Override
-    public void onListInteraction(Recipe receta) {
 
-
-
-
-    }
 
     @Override
     public void onResume() {
@@ -87,5 +79,8 @@ public class RecetasFragment extends Fragment implements AdapterRecetas.OnListIn
     }
 
 
+    @Override
+    public void onListInteraction(Recipe receta, Ingredient ingrediente) {
 
+    }
 }

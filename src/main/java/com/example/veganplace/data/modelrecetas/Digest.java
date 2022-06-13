@@ -5,6 +5,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
+import java.util.List;
 
 
 public class Digest implements Serializable
@@ -21,19 +22,19 @@ public class Digest implements Serializable
     private String schemaOrgTag;
     @SerializedName("total")
     @Expose
-    private Integer total;
+    private double total;
     @SerializedName("hasRDI")
     @Expose
     private Boolean hasRDI;
     @SerializedName("daily")
     @Expose
-    private Integer daily;
+    private double daily;
     @SerializedName("unit")
     @Expose
     private String unit;
     @SerializedName("sub")
     @Expose
-    private Sub sub;
+    private List<Sub> sub;
     private final static long serialVersionUID = 5951556437240640244L;
 
     public String getLabel() {
@@ -60,11 +61,11 @@ public class Digest implements Serializable
         this.schemaOrgTag = schemaOrgTag;
     }
 
-    public Integer getTotal() {
+    public double getTotal() {
         return total;
     }
 
-    public void setTotal(Integer total) {
+    public void setTotal(double total) {
         this.total = total;
     }
 
@@ -76,11 +77,11 @@ public class Digest implements Serializable
         this.hasRDI = hasRDI;
     }
 
-    public Integer getDaily() {
+    public double getDaily() {
         return daily;
     }
 
-    public void setDaily(Integer daily) {
+    public void setDaily(double daily) {
         this.daily = daily;
     }
 
@@ -92,11 +93,11 @@ public class Digest implements Serializable
         this.unit = unit;
     }
 
-    public Sub getSub() {
+    public List<Sub> getSub() {
         return sub;
     }
 
-    public void setSub(Sub sub) {
+    public void setSub(List<Sub> sub) {
         this.sub = sub;
     }
 

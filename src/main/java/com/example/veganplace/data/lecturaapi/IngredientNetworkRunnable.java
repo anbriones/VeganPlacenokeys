@@ -1,10 +1,10 @@
 package com.example.veganplace.data.lecturaapi;
 
-import android.util.Log;
 
 import com.example.veganplace.AppExecutors;
 import com.example.veganplace.data.modelrecetas.Example;
 import com.example.veganplace.data.modelrecetas.Hit;
+import com.example.veganplace.data.modelrecetas.Ingredient;
 import com.example.veganplace.data.modelrecetas.Recipe;
 
 import java.io.IOException;
@@ -18,19 +18,18 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 
-public class RecetasNetworkRunnable implements Runnable {
+public class IngredientNetworkRunnable implements Runnable {
     private static final String LOG_TAG = RecetasNetworkRunnable.class.getSimpleName();
-    private final OnRecipeLoadedListener mOnRecipeLoadedListener;
 
+    private final OnIngredientLoadedListener mOnIngredientLoadedListener;
     private List<Runnable> runList = Collections.synchronizedList(
             new ArrayList<Runnable>());
 
 
-
-    public RecetasNetworkRunnable(OnRecipeLoadedListener mOnRecipeLoadedListener) {
-        this.mOnRecipeLoadedListener = mOnRecipeLoadedListener;
-
+    public IngredientNetworkRunnable(OnIngredientLoadedListener mOnIngredientLoadedListener) {
+        this.mOnIngredientLoadedListener = mOnIngredientLoadedListener;
     }
+
 
     @Override
     public void run() {
@@ -45,18 +44,19 @@ public class RecetasNetworkRunnable implements Runnable {
 
             Response<Example> response = call.execute();
             Example listarecetas = service.getbase().execute().body();
-
-
-            AppExecutors.getInstance().mainThread().execute(() -> Log.d(LOG_TAG, "tamaño lista:" + listarecetas.getHits().size()));
             AppExecutors.getInstance().mainThread().execute(() -> {
                 List<Recipe> recetas = new ArrayList<>();
-                        for (Hit hit : listarecetas.getHits()) {
-                            recetas.add(hit.getRecipe());
-                            mOnRecipeLoadedListener.onRecipeLoaded(recetas);
-
-                        }
+                List<Ingredient> ingredientes = new ArrayList<>();
+                for (Hit hit : listarecetas.getHits())
+                    for (int i = 0; i < hit.getRecipe().getIngredients().size(); i++) {
+                        Ingredient ing = hit.getRecipe().getIngredients().get(i);
+                        ing.setLabelreceta(hit.getRecipe().getLabel());
+                        ingredientes.add(ing);
+                    }
+                  mOnIngredientLoadedListener.onIngredientLoaded(ingredientes);
                     }
             );
+
 
         } catch (IOException e) {
             e.printStackTrace();

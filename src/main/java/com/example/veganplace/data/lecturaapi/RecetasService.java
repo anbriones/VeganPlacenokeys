@@ -1,14 +1,13 @@
 package com.example.veganplace.data.lecturaapi;
 
 
-import com.example.veganplace.data.modelrecetas.Recipe;
-
-import java.util.List;
+import com.example.veganplace.data.modelrecetas.Example;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
 
 public interface RecetasService {
-    @GET("uc?export=download&id=1WHYrOKz_eeoTDZbSzPzfyzeTeYvSLlqw")
-    Call<List<Recipe>> getrecetas();
+    @GET("?type=public&q=vegan&app_id=3befe740&app_key=93312507ffcee7930a9d4fff9023e979")
+
+    Call<Example> getbase();
 }

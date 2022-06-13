@@ -13,10 +13,12 @@ public class Ingredient {
 
     @PrimaryKey(autoGenerate = true)
     private long id;
+    @ColumnInfo(name = "labelreceta")
+    private String labelreceta;
     @ColumnInfo(name = "text")
     private String text;
     @ColumnInfo(name = "quantity")
-    private Integer quantity;
+    private double quantity;
     @ColumnInfo(name = "measure")
     private String measure;
     @SerializedName("food")
@@ -24,7 +26,7 @@ public class Ingredient {
     private String food;
     @SerializedName("weight")
     @Expose
-    private Integer weight;
+    private double weight;
     @SerializedName("foodId")
     @Expose
     private String foodId;
@@ -41,11 +43,11 @@ public class Ingredient {
         this.text = text;
     }
 
-    public Integer getQuantity() {
+    public double getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(Integer quantity) {
+    public void setQuantity(double quantity) {
         this.quantity = quantity;
     }
 
@@ -65,11 +67,11 @@ public class Ingredient {
         this.food = food;
     }
 
-    public Integer getWeight() {
+    public double getWeight() {
         return weight;
     }
 
-    public void setWeight(Integer weight) {
+    public void setWeight(double weight) {
         this.weight = weight;
     }
 
@@ -81,4 +83,9 @@ public class Ingredient {
         this.foodId = foodId;
     }
 
+    public String getLabelreceta() {return labelreceta;    }
+
+    public void setLabelreceta(String labelreceta) {
+        this.labelreceta = labelreceta;
+    }
 }
