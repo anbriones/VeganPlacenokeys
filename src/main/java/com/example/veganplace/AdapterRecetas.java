@@ -12,29 +12,32 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.veganplace.data.modelrecetas.Ingredient;
+import com.example.veganplace.data.modelrecetas.IngredientesEnReceta;
 import com.example.veganplace.data.modelrecetas.Recipe;
-import com.example.veganplace.data.roomdatabase.RecetasRepository;
 
 import java.util.List;
-
 
 
 public class AdapterRecetas extends RecyclerView.Adapter<AdapterRecetas.MyViewHolder> {
     private static final String LOG_TAG = RecetasRepository.class.getSimpleName();
     private List<Recipe> mDataset;
     private List<Ingredient>mDataSetI;
+    private IngredientesEnReceta mDataIngredientesEnRecetas;
+
     Context context;
 
-    public interface OnListInteractionListener{
-        public void onListInteraction(Recipe receta,Ingredient ingrediente);
+    public interface OnListInteractionListener {
+        public void onListInteraction(Recipe receta);
     }
 
-    public AdapterRecetas.OnListInteractionListener mListener;
+        public AdapterRecetas.OnListInteractionListener mListener;
 
-    // Provide a reference to the views for each data item
+
+
+        // Provide a reference to the views for each data item
 // Complex data items may need more than one view per item, and
 // you provide access to all the views for a data item in a view holder
-    public  class MyViewHolder extends RecyclerView.ViewHolder {
+    public static   class MyViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
         public ImageView mImageView;
         public TextView mTextView1;
@@ -48,7 +51,7 @@ public class AdapterRecetas extends RecyclerView.Adapter<AdapterRecetas.MyViewHo
             mView=v;
             mImageView = v.findViewById(R.id.imgreceta);
             mTextView1 = v.findViewById(R.id.nombrereceta);
-            mTextView2 = v.findViewById(R.id.descripcion);
+            mTextView2=v.findViewById(R.id.descripcion);
         }
     }
 
@@ -74,33 +77,24 @@ public class AdapterRecetas extends RecyclerView.Adapter<AdapterRecetas.MyViewHo
     @Override
     public void onBindViewHolder(final AdapterRecetas.MyViewHolder holder,int position) {
 
-        Recipe receta= mDataset.get(position);
-   // Ingredient ingre= mDataSetI.get(position);
         Glide.with(holder.itemView.getContext()).load(mDataset.get(position).getImage().toString()).into(holder.mImageView);
         holder.mTextView1.setText(mDataset.get(position).getLabel().toString());
-
-
-
-            for (int j = 0; j < mDataSetI.size(); j++) {
-                if (receta.getLabel().equals(mDataSetI.get(j).getLabelreceta())) {
-                    holder.mTextView2.setText(holder.mTextView2.getText()+"\n"+mDataSetI.get(j).getText().toString());
-                }
-            }
-
-
+        holder.mTextView2.setText( "Calorias: "+mDataset.get(position).getCalories().substring(0,6));
 
             holder.mView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (null != mListener) {
-
-                    mListener.onListInteraction( mDataset.get(position),mDataSetI.get(position));
+                @Override
+                public void onClick(View v) {
+                    if (null != mListener) {
+                        // Notify the active callbacks interface (the activity, if the
+                        // fragment is attached to one) that an item has been selected.
+                        mListener.onListInteraction(mDataset.get(position));
+                    }
                 }
-            }
-        });
+            });
 
 
-    }
+        }
+
 
     // Return the size of your dataset (invoked by the layout manager)
     @Override
@@ -112,10 +106,9 @@ public class AdapterRecetas extends RecyclerView.Adapter<AdapterRecetas.MyViewHo
         mDataset = dataset;
         notifyDataSetChanged();
     }
-    public void swap2(List<Ingredient> dataseti){
-        mDataSetI = dataseti;
-        notifyDataSetChanged();
-    }
+
+
+
 
     public void clear(){
         mDataset.clear();

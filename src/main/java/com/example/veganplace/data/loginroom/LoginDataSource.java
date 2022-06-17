@@ -1,4 +1,4 @@
-package com.example.veganplace.data;
+package com.example.veganplace.data.loginroom;
 
 import com.example.veganplace.data.model.LoggedInUser;
 

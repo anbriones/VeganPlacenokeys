@@ -4,8 +4,8 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.annotation.NonNull;
 
-import com.example.veganplace.data.LoginDataSource;
-import com.example.veganplace.data.LoginRepository;
+import com.example.veganplace.data.loginroom.LoginDataSource;
+import com.example.veganplace.data.loginroom.LoginRepository;
 
 /**
  * ViewModel provider factory to instantiate LoginViewModel.

@@ -5,7 +5,9 @@ import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.Transaction;
 
+import com.example.veganplace.data.modelrecetas.IngredientesEnReceta;
 import com.example.veganplace.data.modelrecetas.Recipe;
 
 import java.util.List;
@@ -25,10 +27,11 @@ import static androidx.room.OnConflictStrategy.REPLACE;
 
         @Query("SELECT * FROM recipe")
         LiveData<List<Recipe>> getrecetas();
-/*
-        @Query("SELECT * FROM alimentojson WHERE tipo LIKE  '%' || :tipocomida || '%' ")
-        LiveData<List<AlimentosFinales>> getalimentosbytipo(String tipocomida);
-*/
+
+        @Transaction
+        @Query( "SELECT * FROM Recipe" )
+        public List<IngredientesEnReceta> getrecetasdeingredientes();
+
         @Query("delete FROM recipe ")
         int eliminarrecetas();
     }

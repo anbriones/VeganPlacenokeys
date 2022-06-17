@@ -6,6 +6,7 @@
     <string name="title_restaurantes">Restaurantes</string>
     <string name="title_mapas">Mapas</string>
     <string name="title_activity_login">LoginActivity</string>
+    <string name="title_detalle_receta">Detalles de receta</string>
     <string name="prompt_nombre">Nombre</string>
     <string name="prompt_password">Contraseña</string>
     <string name="action_sign_in">Inicio Sesión o registrar</string>

@@ -13,6 +13,11 @@
         android:label="@string/app_name"
         android:theme="@style/Theme.VeganPlace">
         <activity
+            android:name=".ui.detallesreceta.detallesreceta"
+            android:label="@string/title_detalle_receta" >
+
+        </activity>
+        <activity
             android:name="SettingsActivity"
             android:label="@string/settings_toolbar" >
             <meta-data android:name="android.support.PARENT_ACTIVITY"
@@ -25,6 +30,9 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDZEG1RZNVZWR45f14euNosl78frMwUsAg" />
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
 
         <activity
             android:name=".MainActivity"

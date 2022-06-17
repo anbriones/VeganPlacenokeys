@@ -4,11 +4,11 @@
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/verde_bannerd</item>
         <item name="colorPrimaryVariant">@color/verde_horad</item>
-        <item name="colorOnPrimary">@color/whited</item>
+        <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/verde_ciand</item>
+        <item name="colorSecondary">@color/verde_oscuro</item>
         <item name="colorSecondaryVariant">@color/verde_primaverad</item>
-        <item name="colorOnSecondary">@color/blackd</item>
+        <item name="colorOnSecondary">@color/white</item>
 
         <!-- Customize your theme here. -->
 

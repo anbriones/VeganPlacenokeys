@@ -10,15 +10,24 @@ import com.google.gson.annotations.SerializedName;
 
 @Entity(tableName = "ingrediente")
 public class Ingredient {
-
+    @SerializedName("id_ingrediente")
+    @Expose
     @PrimaryKey(autoGenerate = true)
-    private long id;
-    @ColumnInfo(name = "labelreceta")
-    private String labelreceta;
+    private long id_ingrediente;
+    @SerializedName("id_receta_creator")
+    @Expose
+    @ColumnInfo(name = "label_creator")
+    private String label_creator;
+    @SerializedName("text")
+    @Expose
     @ColumnInfo(name = "text")
     private String text;
+    @SerializedName("quantity")
+    @Expose
     @ColumnInfo(name = "quantity")
     private double quantity;
+    @SerializedName("measure")
+    @Expose
     @ColumnInfo(name = "measure")
     private String measure;
     @SerializedName("food")
@@ -31,9 +40,9 @@ public class Ingredient {
     @Expose
     private String foodId;
 
-    public long getId() {return id;    }
+    public long getId_ingrediente() {return id_ingrediente;    }
 
-    public void setId(long id) { this.id = id;   }
+    public void setId_ingrediente(long id) { this.id_ingrediente = id;   }
 
     public String getText() {
         return text;
@@ -83,9 +92,9 @@ public class Ingredient {
         this.foodId = foodId;
     }
 
-    public String getLabelreceta() {return labelreceta;    }
+    public String getLabel_creator() {return label_creator;    }
 
-    public void setLabelreceta(String labelreceta) {
-        this.labelreceta = labelreceta;
+    public void setLabel_creator(String label_creator) {
+        this.label_creator = label_creator;
     }
 }

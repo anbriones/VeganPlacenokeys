@@ -6,8 +6,8 @@ import androidx.lifecycle.ViewModel;
 
 import android.util.Patterns;
 
-import com.example.veganplace.data.LoginRepository;
-import com.example.veganplace.data.Result;
+import com.example.veganplace.data.loginroom.LoginRepository;
+import com.example.veganplace.data.loginroom.Result;
 import com.example.veganplace.data.model.LoggedInUser;
 import com.example.veganplace.R;
 

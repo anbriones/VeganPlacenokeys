@@ -1,6 +1,7 @@
 package com.example.veganplace.ui.recetas;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.veganplace.AdapterIngredientes;
 import com.example.veganplace.AdapterRecetas;
 import com.example.veganplace.AppContainer;
 import com.example.veganplace.InjectorUtils;
@@ -19,21 +21,28 @@ import com.example.veganplace.MyApplication;
 import com.example.veganplace.R;
 import com.example.veganplace.data.modelrecetas.Ingredient;
 import com.example.veganplace.data.modelrecetas.Recipe;
+import com.example.veganplace.ui.detallesreceta.detallesreceta;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 public class RecetasFragment extends Fragment implements AdapterRecetas.OnListInteractionListener{
     private RecyclerView recyclerView;
+    private RecyclerView recyclerView2;
     private AdapterRecetas mAdapter;
+    private AdapterIngredientes mAdapterI;
     AppContainer appContainer;
     RecetasViewModel mViewModel;
     private RecyclerView.LayoutManager layoutManager;
+
+    private RecyclerView.LayoutManager layoutManager2;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.fragment_recetas, container, false);
+
 
 
         recyclerView = (RecyclerView) root.findViewById(R.id.listadorecetasrecicle);
@@ -47,19 +56,15 @@ public class RecetasFragment extends Fragment implements AdapterRecetas.OnListIn
         appContainer = ((MyApplication) this.getActivity().getApplication()).appContainer;
         mViewModel = new ViewModelProvider(this, appContainer.factoryrecetas).get(RecetasViewModel.class);
 
-
         mViewModel.getRecetas().observe(this.getActivity(), recetas -> {
-            mAdapter.swap(recetas);
-
+         mAdapter.swap(recetas);
         });
-        mViewModel.getMingredientes().observe(this.getActivity(), ingredients -> {
-                    mAdapter.swap2(ingredients);
-                });
+
+
+
 
         return root;
     }
-
-
 
 
 
@@ -80,7 +85,11 @@ public class RecetasFragment extends Fragment implements AdapterRecetas.OnListIn
 
 
     @Override
-    public void onListInteraction(Recipe receta, Ingredient ingrediente) {
-
+    public void onListInteraction(Recipe receta) {
+        Intent intentdetalles = new Intent(this.getActivity(), detallesreceta.class);
+        intentdetalles.putExtra("recetasdetalles", (Serializable) receta);
+       startActivity(intentdetalles);
     }
+
+
 }

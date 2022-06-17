@@ -25,8 +25,12 @@ public interface DaoIngrediente {
     @Query("SELECT * FROM ingrediente")
     LiveData<List<Ingredient>> getIngredientes();
 
+    @Query("SELECT * FROM ingrediente  GROUP BY label_creator ")
+    LiveData<List<Ingredient>> getIngredientesgroup();
 
-     @Query("SELECT * FROM ingrediente WHERE labelreceta LIKE  '%' || :id_receta || '%' ")
+
+     @Query("SELECT * FROM ingrediente " +
+                      "INNER JOIN Recipe  ON Recipe.label = ingrediente.label_creator "+  "WHERE  Recipe.label LIKE  '%' || :id_receta || '%' ")
      LiveData<List<Ingredient>> getingredientesbyid_receta(String id_receta);
 
     @Query("delete FROM ingrediente ")

@@ -17,6 +17,7 @@ public class IngredienteNetworkDataSource {
     // LiveData storing the latest downloaded weather forecasts
     private final MutableLiveData<Ingredient[]> mDownloadedIngredientes;
 
+
     private  IngredienteNetworkDataSource() {
         mDownloadedIngredientes = new MutableLiveData<>();
     }
@@ -36,7 +37,7 @@ public class IngredienteNetworkDataSource {
     }
 
     public void fetchingredientes() {
-        Log.d(LOG_TAG, "Fetch recetas started");
+        Log.d(LOG_TAG, "Fetch ingredientes started");
         // Get data from network and pass it to LiveData
         AppExecutors.getInstance().networkIO().execute(new IngredientNetworkRunnable(ingredientes ->
                 mDownloadedIngredientes.postValue(ingredientes.toArray(new Ingredient[0]))));

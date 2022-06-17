@@ -3,7 +3,7 @@ package com.example.veganplace.ui.recetas;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.veganplace.data.roomdatabase.RecetasRepository;
+import com.example.veganplace.RecetasRepository;
 
 public class RecetasViewModelFactory extends ViewModelProvider.NewInstanceFactory{
 

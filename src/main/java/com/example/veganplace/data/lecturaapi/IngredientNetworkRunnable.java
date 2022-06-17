@@ -22,12 +22,14 @@ public class IngredientNetworkRunnable implements Runnable {
     private static final String LOG_TAG = RecetasNetworkRunnable.class.getSimpleName();
 
     private final OnIngredientLoadedListener mOnIngredientLoadedListener;
+
     private List<Runnable> runList = Collections.synchronizedList(
             new ArrayList<Runnable>());
 
 
-    public IngredientNetworkRunnable(OnIngredientLoadedListener mOnIngredientLoadedListener) {
+    public IngredientNetworkRunnable(OnIngredientLoadedListener mOnIngredientLoadedListener ) {
         this.mOnIngredientLoadedListener = mOnIngredientLoadedListener;
+
     }
 
 
@@ -50,7 +52,7 @@ public class IngredientNetworkRunnable implements Runnable {
                 for (Hit hit : listarecetas.getHits())
                     for (int i = 0; i < hit.getRecipe().getIngredients().size(); i++) {
                         Ingredient ing = hit.getRecipe().getIngredients().get(i);
-                        ing.setLabelreceta(hit.getRecipe().getLabel());
+                        ing.setLabel_creator(hit.getRecipe().getLabel());
                         ingredientes.add(ing);
                     }
                   mOnIngredientLoadedListener.onIngredientLoaded(ingredientes);

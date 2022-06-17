@@ -1,11 +1,14 @@
 
 package com.example.veganplace.data.modelrecetas;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
+import androidx.room.TypeConverters;
 
+import com.example.veganplace.data.roomdatabase.ListConverter;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -13,15 +16,15 @@ import java.io.Serializable;
 import java.util.List;
 @Entity(tableName = "recipe")
 public class Recipe implements Serializable {
-    @SerializedName("id")
-    @Expose
-    @PrimaryKey(autoGenerate = true)
-    private Integer id;
+
+
     @SerializedName("uri")
     @Expose
     private String uri;
     @SerializedName("label")
     @Expose
+    @PrimaryKey
+    @NonNull
     @ColumnInfo(name = "label")
     private String label;
     @SerializedName("image")
@@ -58,7 +61,8 @@ public class Recipe implements Serializable {
     private List<String> cautions = null;
     @SerializedName("ingredientLines")
     @Expose
-    @Ignore
+    @ColumnInfo(name = "ingredientLines")
+    @TypeConverters(ListConverter.class)
     private List<String> ingredientLines = null;
     @SerializedName("ingredients")
     @Expose
@@ -66,7 +70,8 @@ public class Recipe implements Serializable {
     private List<Ingredient> ingredients = null;
     @SerializedName("calories")
     @Expose
-    private double calories;
+    @ColumnInfo(name = "calories")
+    private String calories;
     @SerializedName("glycemicIndex")
     @Expose
     private double glycemicIndex;
@@ -104,9 +109,7 @@ public class Recipe implements Serializable {
     @Ignore
     private List<Digest> digest = null;
 
-    public Integer getId() {return id;    }
 
-    public void setId(Integer id) { this.id = id;   }
 
 
     public String getUri() {
@@ -213,11 +216,11 @@ public class Recipe implements Serializable {
         this.ingredients = ingredients;
     }
 
-    public double getCalories() {
+    public String getCalories() {
         return calories;
     }
 
-    public void setCalories(double calories) {
+    public void setCalories(String calories) {
         this.calories = calories;
     }
 
