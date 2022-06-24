@@ -9,7 +9,6 @@
     android:visibility="visible"
     tools:visibility="visible">
 
-
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbarlogin"
         style="@style/Theme.VeganPlace"
@@ -23,7 +22,8 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        app:title="Inicio Sesión"/>
+        app:title="Registro"/>
+
 
     <EditText
         android:id="@+id/username"
@@ -60,22 +60,22 @@
         app:layout_constraintTop_toBottomOf="@+id/username" />
 
     <Button
-        android:id="@+id/login"
+        android:id="@+id/resgitro"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="start"
         android:layout_marginStart="48dp"
-        android:layout_marginTop="40dp"
         android:layout_marginEnd="48dp"
+        android:layout_marginBottom="156dp"
         android:backgroundTint="@color/verde_hora"
         android:enabled="true"
-        android:text="@string/action_sign_in"
+        android:text="@string/action_sign_in_short"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.409"
+        app:layout_constraintHorizontal_bias="0.421"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/password"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <ProgressBar
         android:id="@+id/loading"

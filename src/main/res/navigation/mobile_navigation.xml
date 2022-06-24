@@ -20,7 +20,7 @@
 
     <fragment
         android:id="@+id/navigation_notificaciones"
-        android:name="com.example.veganplace.ui.notifications.NotificationsFragment"
+        android:name="com.example.veganplace.ui.noticias.NoticiasFragment"
         android:label="@string/title_noticias"
         tools:layout="@layout/fragment_noticias" />
     <fragment

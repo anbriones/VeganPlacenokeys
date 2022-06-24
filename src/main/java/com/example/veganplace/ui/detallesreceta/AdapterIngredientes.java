@@ -1,4 +1,4 @@
-package com.example.veganplace;
+package com.example.veganplace.ui.detallesreceta;
 
 
 import android.util.Log;
@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.veganplace.R;
+import com.example.veganplace.VeganPlaceRepository;
 import com.example.veganplace.data.modelrecetas.Ingredient;
 
 import java.util.ArrayList;
@@ -16,7 +18,7 @@ import java.util.List;
 
 
 public class AdapterIngredientes extends RecyclerView.Adapter<AdapterIngredientes.MyViewHolder> {
-    private static final String LOG_TAG = RecetasRepository.class.getSimpleName();
+    private static final String LOG_TAG = VeganPlaceRepository.class.getSimpleName();
     private List<Ingredient> mDataset = new ArrayList<Ingredient>();
     // Provide a reference to the views for each data item
 // Complex data items may need more than one view per item, and

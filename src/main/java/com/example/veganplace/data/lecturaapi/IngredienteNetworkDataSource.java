@@ -41,8 +41,6 @@ public class IngredienteNetworkDataSource {
         // Get data from network and pass it to LiveData
         AppExecutors.getInstance().networkIO().execute(new IngredientNetworkRunnable(ingredientes ->
                 mDownloadedIngredientes.postValue(ingredientes.toArray(new Ingredient[0]))));
-
-
     }
 
 }

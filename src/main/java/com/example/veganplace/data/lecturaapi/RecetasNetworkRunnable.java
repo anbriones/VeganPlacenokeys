@@ -47,7 +47,7 @@ public class RecetasNetworkRunnable implements Runnable {
             Example listarecetas = service.getbase().execute().body();
 
 
-            AppExecutors.getInstance().mainThread().execute(() -> Log.d(LOG_TAG, "tamaño lista:" + listarecetas.getHits().size()));
+          AppExecutors.getInstance().mainThread().execute(() -> Log.d(LOG_TAG, "tamaño lista:" + listarecetas.getHits().size()));
             AppExecutors.getInstance().mainThread().execute(() -> {
                 List<Recipe> recetas = new ArrayList<>();
                         for (Hit hit : listarecetas.getHits()) {

@@ -8,7 +8,7 @@
     <string-array name="valores_temas">
         <item>Predeterminado del sistema</item>
         <item>Oscuro</item>
-        <item>claro</item>
+        <item>Claro</item>
     </string-array>
 
     <string-array name="settings_theme_values">
@@ -17,9 +17,9 @@
         <item>DARK</item>
     </string-array>
 
-    <string-array name="settings_theme_entries">
-        <item>System default</item>
-        <item>Light</item>
-        <item>Dark</item>
+    <string-array name="ajustes_temas_entrada">
+        <item>Predeterminado por sistema </item>
+        <item>Claro</item>
+        <item>Oscuro</item>
     </string-array>
 </resources>

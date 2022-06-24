@@ -12,13 +12,13 @@ import com.example.veganplace.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
-import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 
-public  class HomeFragment extends Fragment implements OnMapReadyCallback {
+public  class HomeFragment extends Fragment {
     private HomeViewModel homeViewModel;
     private MapView mMapView;
     private GoogleMap mMap;
@@ -26,22 +26,44 @@ public  class HomeFragment extends Fragment implements OnMapReadyCallback {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-    View inflatedView = inflater.inflate(R.layout.fragment_home, container, false);
-/*
-        // Gets the MapView from the XML layout and creates it
-        mMapView = (MapView) inflatedView.findViewById(R.id.maps);
-        mMapView.onCreate(savedInstanceState);
+        View inflatedView = inflater.inflate(R.layout.fragment_home, container, false);
 
-        // Set the map ready callback to receive the GoogleMap object
-        mMapView.getMapAsync(this);
-        */
 
+        // Initialize map fragment
+        SupportMapFragment supportMapFragment=(SupportMapFragment)
+                getChildFragmentManager().findFragmentById(R.id.google_map);
+
+        // Async map
+        supportMapFragment.getMapAsync(new OnMapReadyCallback() {
+            @Override
+            public void onMapReady(GoogleMap googleMap) {
+                // When map is loaded
+                googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+                    @Override
+                    public void onMapClick(LatLng latLng) {
+                        // When clicked on map
+                        // Initialize marker options
+                        MarkerOptions markerOptions=new MarkerOptions();
+                        // Set position of marker
+                        markerOptions.position(latLng);
+                        // Set title of marker
+                        markerOptions.title(latLng.latitude+" : "+latLng.longitude);
+                        // Remove all marker
+                        googleMap.clear();
+                        // Animating to zoom the marker
+                        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,10));
+                        // Add marker on map
+                        googleMap.addMarker(markerOptions);
+                    }
+                });
+            }
+        });
         return inflatedView;
 
 
 
     }
-
+/*
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
@@ -52,13 +74,7 @@ public  class HomeFragment extends Fragment implements OnMapReadyCallback {
         mMap.moveCamera(CameraUpdateFactory.newLatLng(caceres));
 
     }
+
+ */
 }
-
-
-
-
-
-
-
-
 

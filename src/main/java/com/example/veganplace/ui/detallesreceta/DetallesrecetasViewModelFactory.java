@@ -3,13 +3,13 @@ package com.example.veganplace.ui.detallesreceta;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.veganplace.RecetasRepository;
+import com.example.veganplace.VeganPlaceRepository;
 
 public class DetallesrecetasViewModelFactory extends ViewModelProvider.NewInstanceFactory{
 
-        private final RecetasRepository mRepository;
+        private final VeganPlaceRepository mRepository;
 
-        public DetallesrecetasViewModelFactory(RecetasRepository repository) {
+        public DetallesrecetasViewModelFactory(VeganPlaceRepository repository) {
             this.mRepository = repository;
         }
 

@@ -16,6 +16,8 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.example.veganplace.ui.login.LoginActivity;
+import com.example.veganplace.ui.login.Perfilusuario;
+import com.example.veganplace.ui.login.Registro;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity  {
@@ -44,8 +46,19 @@ public class MainActivity extends AppCompatActivity  {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.toolbar) {
             SettingsActivity.start(this);
-        } else if (item.getItemId() == R.id.usertoolbar) {
-            Intent intentusuario = new Intent(MainActivity.this, LoginActivity.class);
+        }
+        else if (item.getItemId() == R.id.usertoolbar) {
+            if(MyApplication.activo) {
+                Intent intentusuario = new Intent(MainActivity.this, Perfilusuario.class);
+                startActivity(intentusuario);
+            }
+            else{
+                Intent intentusuario = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(intentusuario);
+            }
+        }
+        else if(item.getItemId()==R.id.usertoolbar2){
+            Intent intentusuario = new Intent(MainActivity.this, Registro.class);
             startActivity(intentusuario);
         }
 

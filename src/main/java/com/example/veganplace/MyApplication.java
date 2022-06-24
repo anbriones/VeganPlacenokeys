@@ -2,7 +2,11 @@ package com.example.veganplace;
 
 import android.app.Application;
 
+import com.example.veganplace.data.modelusuario.User;
+
 public class MyApplication extends Application {
+    public static boolean activo = false;
+    public static User usuario=null;
     public AppContainer appContainer;
     @Override
     public void onCreate() {
@@ -13,4 +17,8 @@ public class MyApplication extends Application {
         ThemeSetup.applyTheme(this);
     }
 
+
+    public User getUsuario(){return usuario;}
+    public void setUsuario(User usuario){  this.usuario=usuario;
+    }
 }

@@ -1,127 +1,93 @@
 package com.example.veganplace.ui.login;
 
-import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.view.KeyEvent;
-import android.view.View;
-import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
-import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
+import com.example.veganplace.AppContainer;
+import com.example.veganplace.InjectorUtils;
+import com.example.veganplace.MyApplication;
 import com.example.veganplace.R;
+import com.example.veganplace.data.modelusuario.User;
+
+import java.io.Serializable;
 
 public class LoginActivity extends AppCompatActivity {
+    EditText nombre;
+    EditText password;
+    EditText nombre2;
+    EditText password2;
+    Button IniciarSesion;
+    Button registrar;
+    LoginViewModel loginViewModel;
+    AppContainer appContainer;
+    LoginViewModelFactory factory;
 
-    private LoginViewModel loginViewModel;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        nombre = findViewById(R.id.username);
+        password = findViewById(R.id.password);
 
 
-        final EditText usernameEditText = findViewById(R.id.username);
-        final EditText passwordEditText = findViewById(R.id.password);
-        final Button loginButton = findViewById(R.id.login);
-        final ProgressBar loadingProgressBar = findViewById(R.id.loading);
+        IniciarSesion = findViewById(R.id.login);
+        registrar = findViewById(R.id.resgitro);
+        factory = InjectorUtils.provideMainActivityViewModelFactorylogin(getApplicationContext());
+        appContainer = ((MyApplication) getApplication()).appContainer;
+        loginViewModel = new ViewModelProvider(this, appContainer.factoryusers).get(LoginViewModel.class);
 
-        loginViewModel.getLoginFormState().observe(this, new Observer<LoginFormState>() {
-            @Override
-            public void onChanged(@Nullable LoginFormState loginFormState) {
-                if (loginFormState == null) {
-                    return;
+        IniciarSesion.setOnClickListener(v -> {
+                    String nombre_g = nombre.getText().toString();
+                    String password_g = password.getText().toString();
+                    if (nombre_g.isEmpty() || password_g.isEmpty()) {
+                        Toast.makeText(getApplicationContext(), "Debes de rellenar los dos campos", Toast.LENGTH_SHORT).show();
+                    } else {
+                        loginViewModel.setnombreypassword(nombre_g, password_g);
+                        loginViewModel.getusuarios().observe(LoginActivity.this, user -> {
+                            if (user != null) {
+                                MyApplication.usuario = user;
+                                MyApplication.activo = true;
+                                perfil(user);
+                            } else {
+                                Toast.makeText(getApplicationContext(), "Datos incorrectos, asegurate de escribirlos correctamente", Toast.LENGTH_SHORT).show();
+                            }
+
+                        });
+
+                    }
                 }
-                loginButton.setEnabled(loginFormState.isDataValid());
-                if (loginFormState.getUsernameError() != null) {
-                    usernameEditText.setError(getString(loginFormState.getUsernameError()));
-                }
-                if (loginFormState.getPasswordError() != null) {
-                    passwordEditText.setError(getString(loginFormState.getPasswordError()));
-                }
-            }
-        });
+        );
 
-        loginViewModel.getLoginResult().observe(this, new Observer<LoginResult>() {
-            @Override
-            public void onChanged(@Nullable LoginResult loginResult) {
-                if (loginResult == null) {
-                    return;
-                }
-                loadingProgressBar.setVisibility(View.GONE);
-                if (loginResult.getError() != null) {
-                    showLoginFailed(loginResult.getError());
-                }
-                if (loginResult.getSuccess() != null) {
-                    updateUiWithUser(loginResult.getSuccess());
-                }
-                setResult(Activity.RESULT_OK);
 
-                //Complete and destroy login activity once successful
-                finish();
-            }
-        });
-        Toolbar toolbar = findViewById(R.id.toolbarlogin);
-        setSupportActionBar(toolbar);
-
-        TextWatcher afterTextChangedListener = new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                // ignore
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // ignore
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                loginViewModel.loginDataChanged(usernameEditText.getText().toString(),
-                        passwordEditText.getText().toString());
-            }
-        };
-        usernameEditText.addTextChangedListener(afterTextChangedListener);
-        passwordEditText.addTextChangedListener(afterTextChangedListener);
-        passwordEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    loginViewModel.login(usernameEditText.getText().toString(),
-                            passwordEditText.getText().toString());
-                }
-                return false;
-            }
-        });
-
-        loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                loadingProgressBar.setVisibility(View.VISIBLE);
-                loginViewModel.login(usernameEditText.getText().toString(),
-                        passwordEditText.getText().toString());
-            }
-        });
     }
 
-    private void updateUiWithUser(LoggedInUserView model) {
-        String welcome = getString(R.string.welcome) + model.getDisplayName();
-        // TODO : initiate successful logged in experience
-        Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
+    public void perfil(User user) {
+        Intent intentperfil = new Intent(this, Perfilusuario.class);
+        intentperfil.putExtra("usuario", (Serializable) user);
+        startActivity(intentperfil);
     }
 
-    private void showLoginFailed(@StringRes Integer errorString) {
-        Toast.makeText(getApplicationContext(), errorString, Toast.LENGTH_SHORT).show();
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
+
 }

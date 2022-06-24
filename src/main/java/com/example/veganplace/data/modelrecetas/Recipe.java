@@ -17,7 +17,6 @@ import java.util.List;
 @Entity(tableName = "recipe")
 public class Recipe implements Serializable {
 
-
     @SerializedName("uri")
     @Expose
     private String uri;

@@ -15,16 +15,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.veganplace.AdapterIngredientes;
 import com.example.veganplace.AppContainer;
 import com.example.veganplace.InjectorUtils;
 import com.example.veganplace.MyApplication;
 import com.example.veganplace.R;
-import com.example.veganplace.RecetasRepository;
+import com.example.veganplace.VeganPlaceRepository;
 import com.example.veganplace.data.modelrecetas.Recipe;
 
 public class detallesreceta extends AppCompatActivity {
-    private static final String LOG_TAG = RecetasRepository.class.getSimpleName();
+    private static final String LOG_TAG = VeganPlaceRepository.class.getSimpleName();
     ImageView image;
 
 
@@ -66,6 +65,7 @@ public class detallesreceta extends AppCompatActivity {
         DetallesrecetasViewModelFactory factory = InjectorUtils.provideMainActivityViewModelFactorydetalles(getApplicationContext());
         appContainer = ((MyApplication) getApplication()).appContainer;
         mViewModel = new ViewModelProvider(this, appContainer.factorydetalles).get(DetallesRecetasViewModel.class);
+
         mViewModel.setid(receta.getLabel());
 
         mViewModel.getingredientes().observe(this, ingredientes -> {

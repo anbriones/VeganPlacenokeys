@@ -13,8 +13,6 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.veganplace.AdapterIngredientes;
-import com.example.veganplace.AdapterRecetas;
 import com.example.veganplace.AppContainer;
 import com.example.veganplace.InjectorUtils;
 import com.example.veganplace.MyApplication;
@@ -28,9 +26,7 @@ import java.util.ArrayList;
 
 public class RecetasFragment extends Fragment implements AdapterRecetas.OnListInteractionListener{
     private RecyclerView recyclerView;
-    private RecyclerView recyclerView2;
     private AdapterRecetas mAdapter;
-    private AdapterIngredientes mAdapterI;
     AppContainer appContainer;
     RecetasViewModel mViewModel;
     private RecyclerView.LayoutManager layoutManager;
@@ -86,9 +82,9 @@ public class RecetasFragment extends Fragment implements AdapterRecetas.OnListIn
 
     @Override
     public void onListInteraction(Recipe receta) {
-        Intent intentdetalles = new Intent(this.getActivity(), detallesreceta.class);
+       Intent intentdetalles = new Intent(this.getActivity(), detallesreceta.class);
         intentdetalles.putExtra("recetasdetalles", (Serializable) receta);
-       startActivity(intentdetalles);
+       startActivity(intentdetalles) ;
     }
 
 

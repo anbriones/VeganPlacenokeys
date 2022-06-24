@@ -12,7 +12,6 @@ public  class IngredientesEnReceta {
         entityColumn = "label_creator"
 )
 public List<Ingredient> ingredientes;
-
         }
 
 

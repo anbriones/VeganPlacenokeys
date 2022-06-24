@@ -3,19 +3,19 @@ package com.example.veganplace.ui.detallesreceta;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.veganplace.RecetasRepository;
+import com.example.veganplace.VeganPlaceRepository;
 import com.example.veganplace.data.modelrecetas.Ingredient;
 
 import java.util.List;
 
 public class DetallesRecetasViewModel extends ViewModel {
 
-        private final RecetasRepository mrecetasrepository;
+        private final VeganPlaceRepository mrecetasrepository;
         private final LiveData<List<Ingredient>> mingredientesbusqueda;
         private final LiveData<List<Ingredient>> mingredientes;
 
 
-        public DetallesRecetasViewModel(RecetasRepository recetasrepository) {
+        public DetallesRecetasViewModel(VeganPlaceRepository recetasrepository) {
             mrecetasrepository=recetasrepository;
             mingredientes=mrecetasrepository.getIngredientes();
             mingredientesbusqueda=mrecetasrepository.getalgetingredientesbyIdReceta();    }

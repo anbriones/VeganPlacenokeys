@@ -6,8 +6,11 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.preference.EditTextPreference;
 import androidx.preference.ListPreference;
+import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
+import androidx.preference.PreferenceManager;
 
 public class SettingsActivity extends AppCompatActivity {
     public static void start(Context context) {
@@ -48,6 +51,20 @@ public class SettingsActivity extends AppCompatActivity {
                 ThemeSetup.applyTheme(ThemeSetup.Mode.valueOf((String) newValue));
                 return true;
             });
+
+            Preference myPref = (Preference) findPreference("Info");
+            myPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                public boolean onPreferenceClick(Preference preference) {
+                    Intent intentinformacion = new Intent(getContext().getApplicationContext(), Informacion.class);
+                   startActivity(intentinformacion) ;
+                    return true;
+                }
+            });
+
+            final EditTextPreference pref = (EditTextPreference) findPreference("signature");
+            if(MyApplication.usuario!=null)
+            pref.setText(PreferenceManager.getDefaultSharedPreferences(getContext()).getString("signature", MyApplication.usuario.getDisplayName()));
+
         }
 
     }

@@ -1,15 +1,15 @@
-package com.example.veganplace.ui.login;
+package com.example.veganplace.ui.noticias;
 
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.veganplace.VeganPlaceRepository;
 
-public class LoginViewModelFactory extends ViewModelProvider.NewInstanceFactory{
+public class NoticiasViewModelFactory extends ViewModelProvider.NewInstanceFactory{
 
     private final VeganPlaceRepository mRepository;
 
-    public LoginViewModelFactory(VeganPlaceRepository repository) {
+    public NoticiasViewModelFactory(VeganPlaceRepository repository) {
         this.mRepository = repository;
     }
 
@@ -17,6 +17,6 @@ public class LoginViewModelFactory extends ViewModelProvider.NewInstanceFactory{
     @Override
     public <T extends ViewModel> T create(Class<T> modelClass) {
         //noinspection unchecked
-        return (T) new LoginViewModel(mRepository);
+        return (T) new NoticiasViewModel(mRepository);
     }
 }
