@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity  {
             SettingsActivity.start(this);
         }
         else if (item.getItemId() == R.id.usertoolbar) {
-            if(MyApplication.activo) {
+            if(MyApplication.usuario!=null) {
                 Intent intentusuario = new Intent(MainActivity.this, Perfilusuario.class);
                 startActivity(intentusuario);
             }
@@ -68,7 +68,12 @@ public class MainActivity extends AppCompatActivity  {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.toolbar_menu, menu);
+        if(MyApplication.usuario!=null) {
+            inflater.inflate(R.menu.toolbar_menu2, menu);
+        }
+        else{
+            inflater.inflate(R.menu.toolbar_menu, menu);
+        }
         return super.onCreateOptionsMenu(menu);
     }
 

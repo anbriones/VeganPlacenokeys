@@ -7,7 +7,6 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
-import com.example.veganplace.data.Roomlogin.DaoUsuario;
 import com.example.veganplace.data.modelusuario.User;
 import com.example.veganplace.data.modelnoticias.Article;
 import com.example.veganplace.data.modelrecetas.Ingredient;

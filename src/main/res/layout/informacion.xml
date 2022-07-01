@@ -4,22 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/scrollView"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    app:behavior_overlapTop="0dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="16dp"
-        tools:context=".MainActivity">
+        tools:context=".Informacion">
 
         <TextView
             android:id="@+id/text1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:text="El veganismo es una actitud de respeto. Veganismo es respetar la vida y el sufrimiento de los animales evitando al máximo participar en su explotación.  Esto conlleva llevar una dieta sin productos de origen animal (vegetariana 100% o dieta vegana). Esta forma de consumo se extiende también al vestido rechazando los productos animales, pues comprar por ejemplo lana o cuero es una manera directa de financiar la explotación animal. El veganismo también implica no colaborar con el encierro, comercialización o la matanza de animales: circos, zoos, delfinarios, compra-venta de animales, caza, etc. Y en definitiva es una lucha en busca de un futuro justo para todos independientemente de la especie a la que pertenezcamos.  El veganismo se propone no como una opción personal, sino como una responsabilidad de todo agente moral."
+            android:layout_marginTop="84dp"
+            android:text="@string/why1"
             android:textAlignment="textStart"
-            app:layout_constraintHorizontal_bias="0.125"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -45,13 +45,27 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
-            android:text="La base del veganismo es el rechazo al especismo. El especismo, o la discriminación en función de la especie, es la causa de la explotación animal. La sociedad en la que vivimos nos educa para que consideremos que las personas humanas merecen un respeto sagrado, mientras que los animales no humanos están ahí para nuestro beneficio. Crecemos pensando que los seres humanos somos seres superiores mientras que los animales son simples cosas animadas cuya vida realmente no es importante y por tanto podemos utilizar a nuestro antojo.  Sentimos cierta empatía por gatos o perros, pues los tenemos cerca, pero una vaca, un cerdo, una trucha o una gallina nos son muy ajenos, sólo los vemos envasados listos para su consumo y jamás nos planteamos si esta bien o mal disponer de su vida como lo hacemos. Poner las cosas en su sitio y valorar objetivamente por qué merecen respeto los animales nos lleva a una actitud vegana.  Quizá el veganismo no es suficiente para frenar tanta injusticia sobre los animales, pero sin duda es el primer paso fundamental para cimentar un futuro de verdadero respeto. Creo por ello, que además de ser veganos, debemos hacer comprender al máximo número de personas lo que dijo una vez Alice Walker:      Los animales existen en el mundo por sus propias razones. No fueron hechos para el ser humano, del mismo modo que los negros no fueron hechos para los blancos, ni la mujer para el varón."
+            android:text="@string/why2"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/img_info"
             app:layout_constraintVertical_bias="1.0" />
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorPrimary"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="?attr/actionBarTheme"
+            app:layout_constraintBottom_toTopOf="@+id/text1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            app:title="@string/title_whyveganplace" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

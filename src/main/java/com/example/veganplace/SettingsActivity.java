@@ -38,6 +38,8 @@ public class SettingsActivity extends AppCompatActivity {
     public static class SettingsFragment extends PreferenceFragmentCompat {
         private ListPreference mListPreference;
 
+
+
         @Override
         public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
             setPreferencesFromResource(R.xml.root_preferences, rootKey);
@@ -61,11 +63,12 @@ public class SettingsActivity extends AppCompatActivity {
                 }
             });
 
-            final EditTextPreference pref = (EditTextPreference) findPreference("signature");
-            if(MyApplication.usuario!=null)
-            pref.setText(PreferenceManager.getDefaultSharedPreferences(getContext()).getString("signature", MyApplication.usuario.getDisplayName()));
+            final EditTextPreference pref = (EditTextPreference) findPreference("Username");
+            if(MyApplication.usuario!=null) {
+                pref.setText(PreferenceManager.getDefaultSharedPreferences(getContext()).getString("Username", MyApplication.usuario.getDisplayName()));
+            }
 
-        }
+    }
 
     }
 }

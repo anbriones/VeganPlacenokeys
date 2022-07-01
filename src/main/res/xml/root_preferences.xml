@@ -4,7 +4,7 @@
     <PreferenceCategory app:title="@string/categoria">
 
         <EditTextPreference
-            app:key="signature"
+            app:key="Username"
             app:title="@string/signature_title"
             app:useSimpleSummaryProvider="true" />
 
@@ -12,15 +12,17 @@
 
     <androidx.preference.ListPreference
         android:key="@string/settings_theme_key"
-        android:title="@string/settings_theme_titulo"
+        android:title="@string/settings_theme_title"
         android:icon="@drawable/ic_baseline_settings_24"
-        android:dialogTitle="@string/settings_theme_dialog_titulo"
-        android:entries="@array/ajustes_temas_entrada"
+        android:dialogTitle="@string/settings_theme_dialog_title"
+        android:entries="@array/settings_theme_values"
         android:entryValues="@array/settings_theme_values"
         android:summary="%s"/>
+
+
     <Preference
         android:key="Info"
-        android:title="Que es el veganismo" />
+        android:title="Why VeganPlace?" />
 
 
 </PreferenceScreen>

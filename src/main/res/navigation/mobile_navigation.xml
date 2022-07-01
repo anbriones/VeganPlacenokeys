@@ -15,7 +15,7 @@
     <fragment
         android:id="@+id/navigation_recetas"
         android:name="com.example.veganplace.ui.recetas.RecetasFragment"
-        android:label="Recetas"
+        android:label="@string/title_recetas"
         tools:layout="@layout/fragment_recetas" />
 
     <fragment

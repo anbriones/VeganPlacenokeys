@@ -23,7 +23,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        app:title="Inicio Sesión"/>
+        app:title="@string/action_sign_in"/>
 
     <EditText
         android:id="@+id/username"
@@ -50,7 +50,7 @@
         android:layout_marginEnd="24dp"
         android:autofillHints="@string/prompt_password"
         android:hint="@string/prompt_password"
-        android:imeActionLabel="@string/action_sign_in_short"
+        android:imeActionLabel="@string/action_sign_in"
         android:imeOptions="actionDone"
         android:inputType="textPassword"
         android:selectAllOnFocus="true"

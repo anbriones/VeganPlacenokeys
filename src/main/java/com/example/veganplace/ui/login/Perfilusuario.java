@@ -1,6 +1,7 @@
 package com.example.veganplace.ui.login;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -12,8 +13,9 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.activity.result.ActivityResultLauncher;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.preference.PreferenceManager;
 
 import com.example.veganplace.MainActivity;
 import com.example.veganplace.MyApplication;
@@ -27,20 +29,23 @@ import java.util.Date;
 
 public class Perfilusuario extends AppCompatActivity {
     ImageView imageView;
+
     public static final int PICK_FILE = 99;
     public static int RESULT_LOAD_IMAGE = 1;
     Bitmap bitmap;
     File imagencorrecta;
     User user = new User();
-    ActivityResultLauncher<Intent> activityResultLauncher;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_perfilusuario);
+        Toolbar toolbar = findViewById(R.id.toolbarperfil);
+        setSupportActionBar(toolbar);
         MyApplication appState = ((MyApplication) getApplicationContext());
 
-        if (MyApplication.usuario != null && MyApplication.activo) {
+        if (MyApplication.usuario != null ) {
 
             user = MyApplication.usuario;
 
@@ -50,9 +55,29 @@ public class Perfilusuario extends AppCompatActivity {
 
         TextView nombre = this.findViewById(R.id.nombre_user);
         nombre.setText(user.getDisplayName().toString());
+
+
+        ImageButton logout = findViewById(R.id.logout);
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+               MyApplication.usuario=null;
+                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(Perfilusuario.this);
+
+
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putString("Username", "Sin definir"); //This is just an example, you could also put boolean, long, int or floats
+                editor.commit();
+                Intent intentinicio = new Intent(getApplication(), MainActivity.class);
+                startActivity(intentinicio);
+            }
+        });
+
+
+
         imageView = (ImageView) findViewById(R.id.img_user);
         File path = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        File directory = new File(path + "/imagenes fithealth");
+        File directory = new File(path + "/imagenes fithealth/"+MyApplication.usuario.getDisplayName());
         if (directory.exists()) {
             File files[] = directory.listFiles();
             if (files.length >= 1) {

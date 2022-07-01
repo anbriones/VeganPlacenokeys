@@ -1,4 +1,4 @@
-package com.example.veganplace.data.Roomlogin;
+package com.example.veganplace.data.roomdatabase;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
@@ -16,9 +16,7 @@ public interface DaoUsuario {
     @Insert(onConflict = REPLACE)
     void insertarUsuario(User usuarios);
 
-
-
-     @Query("SELECT * FROM User where displayName LIKE :nombre and password LIKE :password  ")
+    @Query("SELECT * FROM User where displayName LIKE :nombre and password LIKE :password  ")
    LiveData<User> obtenerusuario(String nombre, String password);
 
     @Query("SELECT * FROM USER WHERE displayName LIKE :nombre  ")
@@ -26,6 +24,7 @@ public interface DaoUsuario {
 
     @Query("SELECT  * FROM User")
     LiveData<List<User>> getusers();
+
 
 
     @Query("delete FROM User ")

@@ -8,6 +8,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.veganplace.AppContainer;
@@ -16,17 +17,19 @@ import com.example.veganplace.MyApplication;
 import com.example.veganplace.R;
 import com.example.veganplace.data.modelusuario.User;
 
-import java.io.Serializable;
-
 public class Registro extends AppCompatActivity {
     EditText nombre;
     EditText password;
-
+    String nombre_g;
+    String password_g;
     Button registrar;
     LoginViewModel loginViewModel;
     AppContainer appContainer;
     LoginViewModelFactory factory;
+    boolean registrado;
+    boolean buscado;
 
+    private static final String LOG_TAG = Registro.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,56 +39,45 @@ public class Registro extends AppCompatActivity {
         password = findViewById(R.id.password);
 
 
-
         registrar = findViewById(R.id.resgitro);
-         factory = InjectorUtils.provideMainActivityViewModelFactorylogin(getApplicationContext());
-         appContainer = ((MyApplication) getApplication()).appContainer;
-         loginViewModel = new ViewModelProvider(this, appContainer.factoryusers).get(LoginViewModel.class);
+        factory = InjectorUtils.provideMainActivityViewModelFactorylogin(getApplicationContext());
+        appContainer = ((MyApplication) getApplication()).appContainer;
+        loginViewModel = new ViewModelProvider(this, appContainer.factoryusers).get(LoginViewModel.class);
 
 
         registrar.setOnClickListener(new View.OnClickListener() {
                                          @Override
-                                         public void onClick(View v) {
-                                             String nombre_g = nombre.getText().toString();
-                                             String password_g = password.getText().toString();
+                                         public void onClick(View view) {
+                                             nombre_g = nombre.getText().toString();
+                                             password_g = password.getText().toString();
                                              if (nombre_g.isEmpty() || password_g.isEmpty()) {
                                                  Toast.makeText(getApplicationContext(), "Debes de rellenar los dos campos", Toast.LENGTH_SHORT).show();
-                                             }
-                                             else {
+                                             } else {
                                                  loginViewModel.setnombre(nombre_g);
-                                                 loginViewModel.getusuario().observe(Registro.this, user -> {
-                                                     if (user != null) {
-                                                          Toast.makeText(Registro.this, " El usuario" + user.getDisplayName() + " ya existe ", Toast.LENGTH_SHORT).show();
-
-                                                     }
-                                                     else{
-                                                         User usuario = new User();
-                                                         usuario.setDisplayName(nombre_g.toString());
-                                                         usuario.setPassword(password_g.toString());
-                                                         loginViewModel.insertarusuario(usuario);
-                                                         Toast.makeText(Registro.this, " Usuario registrado ", Toast.LENGTH_SHORT).show();
-                                                            Intent inicio=new Intent(getApplicationContext(),LoginActivity.class);
-                                                         startActivity(inicio);
-                                                     }
-
-
-                                                 });
-
-
+                                                 final LiveData<User> userDetailObservable = loginViewModel.getusuario();
+                                                 userDetailObservable.observe(Registro.this, user -> {
+                                                             if (user != null && user.getDisplayName().equals(nombre_g.toString()))
+                                                                 Toast.makeText(Registro.this, "El usuario ya existe", Toast.LENGTH_SHORT).show();
+                                                             if (user == null && nombre_g!="") {
+                                                                 User usuario = new User();
+                                                                 usuario.setDisplayName(nombre_g.toString());
+                                                                 usuario.setPassword(password_g.toString());
+                                                                 if(usuario.getDisplayName()!="") {
+                                                                     loginViewModel.insertarusuario(usuario);
+                                                                 }
+                                                                 nombre_g = "";
+                                                                 Toast.makeText(getApplicationContext(), "Usuario resgitrado", Toast.LENGTH_SHORT).show();
+                                                                 Intent inicio = new Intent(getApplicationContext(), LoginActivity.class);
+                                                                 startActivity(inicio);
+                                                             }
+                                                         }
+                                                 );
                                              }
-
                                          }
                                      }
-
         );
-}
-
-
-    public void perfil(User user) {
-        Intent intentperfil = new Intent(this, Perfilusuario.class);
-        intentperfil.putExtra("usuario", (Serializable) user);
-        startActivity(intentperfil);
     }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -95,6 +87,7 @@ public class Registro extends AppCompatActivity {
     @Override
     public void onDestroy() {
         super.onDestroy();
+
     }
 
     @Override

@@ -22,7 +22,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        app:title="Registro"/>
+        app:title="@string/action_register"/>
 
 
     <EditText
@@ -50,7 +50,7 @@
         android:layout_marginEnd="24dp"
         android:autofillHints="@string/prompt_password"
         android:hint="@string/prompt_password"
-        android:imeActionLabel="@string/action_sign_in_short"
+        android:imeActionLabel="@string/action_register"
         android:imeOptions="actionDone"
         android:inputType="textPassword"
         android:selectAllOnFocus="true"
@@ -69,7 +69,7 @@
         android:layout_marginBottom="156dp"
         android:backgroundTint="@color/verde_hora"
         android:enabled="true"
-        android:text="@string/action_sign_in_short"
+        android:text="@string/action_register"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.421"

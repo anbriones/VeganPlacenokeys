@@ -1,46 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">VeganPlace</string>
     <string name="title_home">Home</string>
-    <string name="title_recetas">Recetas</string>
-    <string name="title_noticias">Noticias</string>
-    <string name="title_restaurantes">Restaurantes</string>
-    <string name="title_mapas">Mapas</string>
+    <string name="title_recetas">Recipes</string>
+    <string name="title_noticias">News</string>
+    <string name="title_restaurantes">Restaurants</string>
+    <string name="title_mapas">Maps</string>
     <string name="title_activity_login">LoginActivity</string>
-    <string name="title_detalle_receta">Detalles de receta</string>
-    <string name="title_detalle_noticia">Detalles de noticia</string>
-
-    <string name="prompt_nombre">Nombre</string>
-    <string name="prompt_password">Contraseña</string>
-    <string name="action_sign_in">Inicio Sesión</string>
-    <string name="action_sign_in_short">Registar</string>
+    <string name="title_detalle_receta">Recipe Details</string>
+    <string name="calories">Calories : </string>
+    <string name="title_detalle_noticia">Details new</string>
+    <string name="title_whyveganplace">Why VeganPlace</string>
+    <string name="title_profile">Profile</string>
+    <string name="closeSession">Close Session</string>
+    <string name="prompt_nombre">Name</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Login</string>
+    <string name="action_register">Sign up</string>
     <string name="welcome">"Welcome !"</string>
-    <string name="invalid_username">Nombre de usuario no válido</string>
-    <string name="invalid_password">Contraseña debe tener 5 carácteres</string>
-    <string name="login_failed">"Inicio de sesión fallido"</string>
-    <string name="toolbar_action_settings">Ajustes</string>
+    <string name="invalid_username">Name value invalid</string>
+   <string name="toolbar_action_settings">Settings</string>
     <string name="title_activity_settings">SettingsActivity</string>
     <string name="settings_theme_title">Choose theme</string>
     <string name="settings_theme_dialog_title">Choose theme</string>
 
-    <string name="settings_theme_titulo">Elige tema</string>
-    <string name="settings_theme_dialog_titulo">Elige tema</string>
+
     <string name="settings_toolbar">Settings</string>
     <string name="settings_theme_key" translatable="false">theme</string>
     <string name="settings_fragment_tab" translatable="false">settings_fragment_tab</string>
     <!-- Preference Titles -->
-    <string name="categoria">Ajustes Vegan Place</string>
+    <string name="categoria">Veganplace Setting </string>
     <string name="sync_header">Sync</string>
 
     <!-- Messages Preferences -->
-    <string name="signature_title">Tu nombre</string>
+    <string name="signature_title">Your name</string>
 
 
     <!-- Sync Preferences -->
-    <string name="sync_title">Sync email periodically</string>
-    <string name="attachment_title">Download incoming attachments</string>
-    <string name="attachment_summary_on">Automatically download attachments for incoming emails
-    </string>
-    <string name="attachment_summary_off">Only download attachments when manually requested</string>
-    <string name="prompt_email">Email</string>
+
     <string name="api_key">AIzaSyDZEG1RZNVZWR45f14euNosl78frMwUsAg</string>
+
+
+    <!-- Why Vegan place -->
+    <string name="why1">The idea of ​​making this application arises from the need to find vegan restaurants in the different places where I travel, because I always used google maps and I would have liked an App to exist in which, in addition to knowing the vegan and vegetarian restaurants that were nearby, You could also see news about the vegan world and recipes.</string>
+    <string name="why2">The first cookbook to use the new word vegan in its title was by Fay K. Henderson, published in 1946..\nA diet without animal products is extremely versatile. The transition to a more plant-based diet opens up a world of new and exciting culinary possibilities. Animal products can be easily substituted...\n
+   <ul type="circle">
+       <li><b>Fruits and vegetables</b> such as tomatoes, cabbage, pumpkin, garlic, olives, broccoli, apples, nectarines, berries, bananas, melons and oranges are foods that are an important source of vitamins, minerals, phytonutrients and fiber.. </li>\n
+       <li><b>Legumes </b>such as lentils, peas, beans, soybeans and lupins are an important source of protein..</li>\n
+        <li><b> Whole grains and cereals</b> such as oats, rye, spelled, wheat, barley, millet, and rice, along with pseudocereals such as quinoa, amaranth, and buckwheat, provide complex carbohydrates, fiber, and phytochemicals..</li>\n
+       <li><b>Nuts and seeds </b>such as flaxseeds, walnuts and hemp seeds provide healthy fats and nutrients with high nutritional value..</li>\n
+       <li><b>Vegan meat alternatives </b>like tofu, vegan burgers, schnitzel and sausage can be found in many versions made with, for example, soy, seitan and lupine. There are also vegan alternatives for milk, yogurt and cheese. These are usually made with soybeans, nuts and cereals.</li>
+
+   </ul>
+</string>
+
 </resources>

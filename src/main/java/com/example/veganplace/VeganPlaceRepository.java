@@ -7,7 +7,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Transformations;
 
-import com.example.veganplace.data.Roomlogin.DaoUsuario;
+import com.example.veganplace.data.roomdatabase.DaoUsuario;
 import com.example.veganplace.data.lecturaapi.IngredienteNetworkDataSource;
 import com.example.veganplace.data.lecturaapi.RecetasNetworkDataSource;
 import com.example.veganplace.data.lecturaapinoticias.NoticiasNetWorkDatasource;
@@ -56,7 +56,7 @@ public class VeganPlaceRepository {
         this.mNoticiasNetworkDataSource=mNoticiasNetworkDataSource;
 
 
-        doFetchRecetas();
+        dofectchdatos();
         // LiveData that fetches alimentosjson from network
         LiveData<Recipe[]> networkData = this.mRecetaNetworkDataSource.getCurrentrecetas();
         LiveData<Ingredient[]> networkDataing = this.mIngretaNetworkDataSource.getcurrentingredientes();
@@ -75,15 +75,14 @@ public class VeganPlaceRepository {
 
         networkDataing.observeForever(newIngreFromNetwork -> {
             mExecutors.diskIO().execute(() -> {
-
                 mingredientesdao.insertarIngrediente(Arrays.asList(newIngreFromNetwork));
                 Log.d(LOG_TAG, "New values ingredients inserted in Room");
             });
         });
 
+
         networkNoticias.observeForever(newIngreFromNetwork -> {
             mExecutors.diskIO().execute(() -> {
-
                 mnoticiasDao.insertarNoticia(Arrays.asList(newIngreFromNetwork));
                 Log.d(LOG_TAG, "New values noticias inserted in Room");
             });
@@ -101,7 +100,7 @@ public class VeganPlaceRepository {
         return sInstance;
     }
 
-    public void doFetchRecetas() {
+    public void dofectchdatos() {
         Log.d(LOG_TAG, "Fetching recetas from Json");
         AppExecutors.getInstance().diskIO().execute(() -> {
             mrecetasdao.eliminarrecetas();
@@ -133,6 +132,7 @@ public class VeganPlaceRepository {
     public LiveData<List<Article>> getnoticias() {
         return mnoticiasDao.getnoticias();
     }
+
 
 
     public void setnombreypas(String nombre,String pas){

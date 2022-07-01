@@ -17,7 +17,6 @@ import com.example.veganplace.AppContainer;
 import com.example.veganplace.InjectorUtils;
 import com.example.veganplace.MyApplication;
 import com.example.veganplace.R;
-import com.example.veganplace.data.modelrecetas.Ingredient;
 import com.example.veganplace.data.modelrecetas.Recipe;
 import com.example.veganplace.ui.detallesreceta.detallesreceta;
 
@@ -31,8 +30,6 @@ public class RecetasFragment extends Fragment implements AdapterRecetas.OnListIn
     RecetasViewModel mViewModel;
     private RecyclerView.LayoutManager layoutManager;
 
-    private RecyclerView.LayoutManager layoutManager2;
-
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -40,13 +37,12 @@ public class RecetasFragment extends Fragment implements AdapterRecetas.OnListIn
         View root = inflater.inflate(R.layout.fragment_recetas, container, false);
 
 
-
         recyclerView = (RecyclerView) root.findViewById(R.id.listadorecetasrecicle);
         assert (recyclerView) != null;
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
-        mAdapter = new AdapterRecetas(new ArrayList<Recipe>(), new ArrayList<Ingredient>(),this);
+        mAdapter = new AdapterRecetas(new ArrayList<Recipe>(),this);
         recyclerView.setAdapter(mAdapter);
         RecetasViewModelFactory factory = InjectorUtils.provideMainActivityViewModelFactoryhome(this.getActivity().getApplicationContext());
         appContainer = ((MyApplication) this.getActivity().getApplication()).appContainer;
@@ -55,10 +51,6 @@ public class RecetasFragment extends Fragment implements AdapterRecetas.OnListIn
         mViewModel.getRecetas().observe(this.getActivity(), recetas -> {
          mAdapter.swap(recetas);
         });
-
-
-
-
         return root;
     }
 

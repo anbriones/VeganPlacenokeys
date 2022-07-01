@@ -14,7 +14,6 @@ import com.bumptech.glide.Glide;
 import com.example.veganplace.R;
 import com.example.veganplace.VeganPlaceRepository;
 import com.example.veganplace.data.modelrecetas.Ingredient;
-import com.example.veganplace.data.modelrecetas.IngredientesEnReceta;
 import com.example.veganplace.data.modelrecetas.Recipe;
 
 import java.util.List;
@@ -23,8 +22,8 @@ import java.util.List;
 public class AdapterRecetas extends RecyclerView.Adapter<AdapterRecetas.MyViewHolder> {
     private static final String LOG_TAG = VeganPlaceRepository.class.getSimpleName();
     private List<Recipe> mDataset;
-    private List<Ingredient>mDataSetI;
-    private IngredientesEnReceta mDataIngredientesEnRecetas;
+
+
 
     Context context;
 
@@ -57,9 +56,8 @@ public class AdapterRecetas extends RecyclerView.Adapter<AdapterRecetas.MyViewHo
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public AdapterRecetas(List<Recipe> myDataset,List<Ingredient> myDataSetI,AdapterRecetas.OnListInteractionListener listener) {
+    public AdapterRecetas(List<Recipe> myDataset,AdapterRecetas.OnListInteractionListener listener) {
         mDataset = myDataset;
-        mDataSetI = myDataSetI;
         mListener = listener;
 
     }
@@ -80,7 +78,7 @@ public class AdapterRecetas extends RecyclerView.Adapter<AdapterRecetas.MyViewHo
 
         Glide.with(holder.itemView.getContext()).load(mDataset.get(position).getImage().toString()).into(holder.mImageView);
         holder.mTextView1.setText(mDataset.get(position).getLabel().toString());
-        holder.mTextView2.setText( "Calorias: "+mDataset.get(position).getCalories().substring(0,6));
+        holder.mTextView2.setText( holder.mTextView2.getText()+mDataset.get(position).getCalories().substring(0,6));
 
             holder.mView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -113,7 +111,6 @@ public class AdapterRecetas extends RecyclerView.Adapter<AdapterRecetas.MyViewHo
 
     public void clear(){
         mDataset.clear();
-        mDataSetI.clear();
         notifyDataSetChanged();
     }
 }

@@ -5,8 +5,7 @@ import android.app.Application;
 import com.example.veganplace.data.modelusuario.User;
 
 public class MyApplication extends Application {
-    public static boolean activo = false;
-    public static User usuario=null;
+       public static User usuario=null;
     public AppContainer appContainer;
     @Override
     public void onCreate() {
