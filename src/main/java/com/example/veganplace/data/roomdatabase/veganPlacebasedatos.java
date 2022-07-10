@@ -20,7 +20,7 @@ public abstract class veganPlacebasedatos extends RoomDatabase {
 
     public static veganPlacebasedatos getInstance(Context context){
         if(instance == null) {
-            instance = Room.databaseBuilder(context, veganPlacebasedatos.class, "databaserecetas.db").build();
+            instance = Room.databaseBuilder(context, veganPlacebasedatos.class, "databaseveganplace.db").build();
         }
         return instance;
     }

@@ -10,14 +10,8 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-
         //Se  crea aquí porque es necesario pasar el contexto para las bases de datos de room
         appContainer = new AppContainer(this);
         ThemeSetup.applyTheme(this);
-    }
-
-
-    public User getUsuario(){return usuario;}
-    public void setUsuario(User usuario){  this.usuario=usuario;
     }
 }

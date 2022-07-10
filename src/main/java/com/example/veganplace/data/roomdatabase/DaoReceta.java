@@ -7,7 +7,7 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Transaction;
 
-import com.example.veganplace.data.modelrecetas.IngredientesEnReceta;
+import com.example.veganplace.data.modelrecetas.IngredientsInRecipe;
 import com.example.veganplace.data.modelrecetas.Recipe;
 
 import java.util.List;
@@ -30,7 +30,7 @@ import static androidx.room.OnConflictStrategy.REPLACE;
 
         @Transaction
         @Query( "SELECT * FROM Recipe" )
-        public List<IngredientesEnReceta> getrecetasdeingredientes();
+        public List<IngredientsInRecipe> getrecetasdeingredientes();
 
         @Query("delete FROM recipe ")
         int eliminarrecetas();

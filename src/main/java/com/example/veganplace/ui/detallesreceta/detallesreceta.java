@@ -1,5 +1,6 @@
 package com.example.veganplace.ui.detallesreceta;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -33,6 +34,7 @@ public class detallesreceta extends AppCompatActivity {
     AppContainer appContainer;
     DetallesRecetasViewModel mViewModel;
 
+    @SuppressLint({"SetTextI18n", "DefaultLocale"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
      super.onCreate(savedInstanceState);
@@ -51,7 +53,9 @@ public class detallesreceta extends AppCompatActivity {
         TextView text = findViewById(R.id.nombre_receta);
         text.setText( receta.getLabel().toString());
         TextView calorias = findViewById(R.id.calorias_);
-        calorias.setText(receta.getCalories().substring(0,6)+" calorias");
+        String caloriastext=getString(R.string.calories);
+        calorias.setText(receta.getCalories().substring(0, 6).toString()+"  " +getResources().getString(R.string.calories2));
+
         image = findViewById(R.id.imagendetalle);
         Glide.with(this).load(receta.getImage()).into(image);
 

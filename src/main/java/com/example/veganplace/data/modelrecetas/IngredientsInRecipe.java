@@ -5,13 +5,13 @@ import androidx.room.Relation;
 
 import java.util.List;
 
-public  class IngredientesEnReceta {
+public  class IngredientsInRecipe {
  @Embedded public Recipe recipe;
 @Relation(
         parentColumn = "label",
         entityColumn = "label_creator"
 )
-public List<Ingredient> ingredientes;
+public List<Ingredient> ingredients;
         }
 
 

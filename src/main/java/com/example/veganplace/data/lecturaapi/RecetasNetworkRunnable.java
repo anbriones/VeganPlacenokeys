@@ -53,7 +53,6 @@ public class RecetasNetworkRunnable implements Runnable {
                         for (Hit hit : listarecetas.getHits()) {
                             recetas.add(hit.getRecipe());
                             mOnRecipeLoadedListener.onRecipeLoaded(recetas);
-
                         }
                     }
             );

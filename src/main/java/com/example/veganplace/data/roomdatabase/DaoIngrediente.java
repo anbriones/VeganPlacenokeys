@@ -22,17 +22,17 @@ public interface DaoIngrediente {
     void saveIngrediente(Ingredient ingrediente);
 
 
-    @Query("SELECT * FROM ingrediente")
+    @Query("SELECT * FROM ingredient")
     LiveData<List<Ingredient>> getIngredientes();
 
 
 
 
-     @Query("SELECT * FROM ingrediente " +
-                      "INNER JOIN Recipe  ON Recipe.label = ingrediente.label_creator "+  "WHERE  Recipe.label LIKE   :id_receta ")
+     @Query("SELECT * FROM ingredient " +
+                      "INNER JOIN Recipe  ON Recipe.label = ingredient.label_creator "+  "WHERE  Recipe.label LIKE   :id_receta ")
      LiveData<List<Ingredient>> getingredientesbyid_receta(String id_receta);
 
-    @Query("delete FROM ingrediente ")
+    @Query("delete FROM ingredient ")
     int eliminaringredientes();
 }
 

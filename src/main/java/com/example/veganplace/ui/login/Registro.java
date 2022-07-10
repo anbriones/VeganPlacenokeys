@@ -20,14 +20,15 @@ import com.example.veganplace.data.modelusuario.User;
 public class Registro extends AppCompatActivity {
     EditText nombre;
     EditText password;
+    EditText password2;
     String nombre_g;
     String password_g;
+    String password_g2;
     Button registrar;
     LoginViewModel loginViewModel;
     AppContainer appContainer;
     LoginViewModelFactory factory;
-    boolean registrado;
-    boolean buscado;
+
 
     private static final String LOG_TAG = Registro.class.getSimpleName();
 
@@ -37,6 +38,7 @@ public class Registro extends AppCompatActivity {
         setContentView(R.layout.activity_registro);
         nombre = findViewById(R.id.username);
         password = findViewById(R.id.password);
+        password2=findViewById(R.id.password2);
 
 
         registrar = findViewById(R.id.resgitro);
@@ -50,9 +52,18 @@ public class Registro extends AppCompatActivity {
                                          public void onClick(View view) {
                                              nombre_g = nombre.getText().toString();
                                              password_g = password.getText().toString();
-                                             if (nombre_g.isEmpty() || password_g.isEmpty()) {
-                                                 Toast.makeText(getApplicationContext(), "Debes de rellenar los dos campos", Toast.LENGTH_SHORT).show();
-                                             } else {
+                                             password_g2=password2.getText().toString();
+
+                                             if (nombre_g.isEmpty() || password_g.isEmpty() || !password_g2.equals(password_g)) {
+                                                 if(nombre_g.isEmpty() || password_g.isEmpty() )
+                                                     Toast.makeText(getApplicationContext(), "Name or password can't be empty", Toast.LENGTH_SHORT).show();
+                                                 else if (!password_g2.equals(password_g)){
+                                                     Toast.makeText(getApplicationContext(), "Must be the same password", Toast.LENGTH_SHORT).show();
+
+                                                 }
+
+                                             }
+                                             else {
                                                  loginViewModel.setnombre(nombre_g);
                                                  final LiveData<User> userDetailObservable = loginViewModel.getusuario();
                                                  userDetailObservable.observe(Registro.this, user -> {

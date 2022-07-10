@@ -8,13 +8,13 @@ import androidx.room.PrimaryKey;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-@Entity(tableName = "ingrediente")
+@Entity(tableName = "ingredient")
 public class Ingredient {
-    @SerializedName("id_ingrediente")
+    @SerializedName("id_ingredient")
     @Expose
     @PrimaryKey(autoGenerate = true)
     private long id_ingrediente;
-    @SerializedName("id_receta_creator")
+    @SerializedName("label_creator")
     @Expose
     @ColumnInfo(name = "label_creator")
     private String label_creator;

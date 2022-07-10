@@ -15,7 +15,6 @@ public final class ThemeSetup {
     public enum Mode {
         DEFAULT, DARK, LIGHT
     }
-
     public static void applyTheme(Mode mode) {
         switch (mode) {
             case DARK:

@@ -50,41 +50,35 @@ boolean encontrado;
         appContainer = ((MyApplication) getApplication()).appContainer;
         loginViewModel = new ViewModelProvider(this, appContainer.factoryusers).get(LoginViewModel.class);
         encontrado=false;
-        loginViewModel.getusuarios().removeObservers(this);
-        IniciarSesion.setOnClickListener(new View.OnClickListener() {
+
+                        IniciarSesion.setOnClickListener(new View.OnClickListener() {
                                              @Override
                                              public void onClick(View v) {
                                                  nombre_g = nombre.getText().toString();
                                                  password_g = password.getText().toString();
                                                  if (nombre_g.isEmpty() || password_g.isEmpty()) {
-                                                     Toast.makeText(LoginActivity.this.getApplicationContext(), "Debes de rellenar los dos campos", Toast.LENGTH_SHORT).show();
+                                                     Toast.makeText(LoginActivity.this.getApplicationContext(),R.string.fields_not_filled, Toast.LENGTH_SHORT).show();
                                                  } else {
                                                      loginViewModel.setnombreypassword(nombre_g, password_g);
                                                      loginViewModel.getusuarios().observe(LoginActivity.this, new Observer<User>() {
                                                          @Override
                                                          public void onChanged(@Nullable User user) {
                                                              if (user != null) {
-
                                                                  if(encontrado) {
-                                                                     Toast.makeText(LoginActivity.this, "Iniciando sesión", Toast.LENGTH_SHORT).show();
+                                                                     Toast.makeText(LoginActivity.this, "Starting Login", Toast.LENGTH_SHORT).show();
                                                                  }
                                                                  MyApplication.usuario = user;
                                                                  SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-
-
                                                                  SharedPreferences.Editor editor = preferences.edit();
-                                                                 editor.putString("Username", MyApplication.usuario.getDisplayName()); //This is just an example, you could also put boolean, long, int or floats
+                                                                 editor.putString("Username", MyApplication.usuario.getDisplayName());
                                                                  editor.commit();
-
                                                                  encontrado=true;
                                                                  Intent intentperfil = new Intent(LoginActivity.this, Perfilusuario.class);
                                                                  intentperfil.putExtra("usuario", (Serializable) user);
                                                                  startActivity(intentperfil);
-
-
                                                              }
                                                              if(!encontrado ) {
-                                                                 nombre.setText("Escribe bien el usuario");
+                                                                 nombre.setText("Write the user correctly");
                                                                  password.setText("");
                                                              }
                                                          }

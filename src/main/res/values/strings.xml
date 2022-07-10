@@ -9,12 +9,15 @@
     <string name="title_activity_login">LoginActivity</string>
     <string name="title_detalle_receta">Recipe Details</string>
     <string name="calories">Calories : </string>
+    <string name="calories2">calories </string>
     <string name="title_detalle_noticia">Details new</string>
     <string name="title_whyveganplace">Why VeganPlace</string>
     <string name="title_profile">Profile</string>
     <string name="closeSession">Close Session</string>
     <string name="prompt_nombre">Name</string>
     <string name="prompt_password">Password</string>
+    <string name="prompt_password2">Confirm Your Password</string>
+    <string name="fields_not_filled">The fields for the name and password need to be filled</string>
     <string name="action_sign_in">Login</string>
     <string name="action_register">Sign up</string>
     <string name="welcome">"Welcome !"</string>
@@ -23,7 +26,7 @@
     <string name="title_activity_settings">SettingsActivity</string>
     <string name="settings_theme_title">Choose theme</string>
     <string name="settings_theme_dialog_title">Choose theme</string>
-
+    <string name="Ingredient_list">Ingredients List</string>
 
     <string name="settings_toolbar">Settings</string>
     <string name="settings_theme_key" translatable="false">theme</string>
