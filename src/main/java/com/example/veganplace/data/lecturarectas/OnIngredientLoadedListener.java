@@ -1,4 +1,4 @@
-package com.example.veganplace.data.lecturaapi;
+package com.example.veganplace.data.lecturarectas;
 
 import com.example.veganplace.data.modelrecetas.Ingredient;
 

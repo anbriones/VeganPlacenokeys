@@ -5,8 +5,10 @@
     android:id="@+id/RelativeLayout1"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:contentDescription="contenedor de la lista de recetas "
+    android:orientation="vertical"
     android:padding="8dp"
-    android:orientation="vertical" >
+    tools:ignore="HardcodedText">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
@@ -16,18 +18,19 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="15dp"
-        android:background="@color/fondo_logo">
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="6dp"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/esquinas_redondeads">
 
         <ImageView
             android:id="@+id/imgreceta"
             android:layout_width="139dp"
             android:layout_height="156dp"
+            android:contentDescription="imagen de la receta"
             android:visibility="visible"
-            app:layout_constraintBottom_toBottomOf="parent"
 
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.065"
             app:layout_constraintStart_toStartOf="parent"
@@ -37,7 +40,7 @@
 
         <TextView
             android:id="@+id/nombrereceta"
-            android:layout_width="176dp"
+            android:layout_width="182dp"
             android:layout_height="86dp"
             android:fontFamily="@font/adamina"
             android:text="TextView"
@@ -48,10 +51,10 @@
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.882"
+            app:layout_constraintHorizontal_bias="0.974"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.101"
+            app:layout_constraintVertical_bias="0.106"
             tools:ignore="MissingConstraints" />
 
         <TextView
@@ -65,10 +68,27 @@
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.514"
+            app:layout_constraintHorizontal_bias="0.75"
             app:layout_constraintStart_toEndOf="@+id/imgreceta"
             app:layout_constraintTop_toBottomOf="@+id/nombrereceta"
-            app:layout_constraintVertical_bias="0.0"
+            app:layout_constraintVertical_bias="0.002"
+            tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:id="@+id/descripcion2"
+            android:layout_width="182dp"
+            android:layout_height="56dp"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/adamina"
+            android:text="@string/calories"
+            android:textColor="@color/verde_banner"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.75"
+            app:layout_constraintStart_toEndOf="@+id/imgreceta"
+            app:layout_constraintTop_toBottomOf="@+id/nombrereceta"
+            app:layout_constraintVertical_bias="0.002"
             tools:ignore="MissingConstraints" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

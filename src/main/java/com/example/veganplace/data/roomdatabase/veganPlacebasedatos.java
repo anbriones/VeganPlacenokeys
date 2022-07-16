@@ -7,13 +7,15 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
-import com.example.veganplace.data.modelusuario.User;
+import com.example.veganplace.data.modelmapas.Location;
+import com.example.veganplace.data.modelmapas.Result;
 import com.example.veganplace.data.modelnoticias.Article;
 import com.example.veganplace.data.modelrecetas.Ingredient;
 import com.example.veganplace.data.modelrecetas.Recipe;
+import com.example.veganplace.data.modelusuario.User;
 
 
-@Database(entities = {Recipe.class, Ingredient.class, Article.class, User.class}, version = 1, exportSchema = false)
+@Database(entities = {Recipe.class, Ingredient.class, Article.class, User.class, Result.class, Location.class}, version = 1, exportSchema = false)
 @TypeConverters(ListConverter.class)
 public abstract class veganPlacebasedatos extends RoomDatabase {
     private static veganPlacebasedatos instance;
@@ -28,6 +30,8 @@ public abstract class veganPlacebasedatos extends RoomDatabase {
     public  abstract DaoIngrediente daoIngrediente();
     public abstract  DaoNoticia daoNoticia();
     public abstract DaoUsuario daoUsuarios();
+    public abstract DaoResult daoResult();
+    public abstract DaoLocation daoLocation();
 
 
 

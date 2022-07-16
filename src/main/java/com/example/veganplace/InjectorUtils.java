@@ -3,11 +3,14 @@ package com.example.veganplace;
 
 import android.content.Context;
 
-import com.example.veganplace.data.lecturaapi.IngredienteNetworkDataSource;
-import com.example.veganplace.data.lecturaapi.RecetasNetworkDataSource;
+import com.example.veganplace.data.lecturamapas.CoordenadasNetWorkDatasource;
+import com.example.veganplace.data.lecturamapas.RestaurantesNetWorkDatasource;
+import com.example.veganplace.data.lecturarectas.IngredienteNetworkDataSource;
+import com.example.veganplace.data.lecturarectas.RecetasNetworkDataSource;
 import com.example.veganplace.data.lecturaapinoticias.NoticiasNetWorkDatasource;
 import com.example.veganplace.data.roomdatabase.veganPlacebasedatos;
 import com.example.veganplace.ui.detallesreceta.DetallesrecetasViewModelFactory;
+import com.example.veganplace.ui.home.HomeViewModelFactory;
 import com.example.veganplace.ui.login.LoginViewModelFactory;
 import com.example.veganplace.ui.noticias.NoticiasViewModelFactory;
 import com.example.veganplace.ui.recetas.RecetasViewModelFactory;
@@ -24,8 +27,10 @@ public class InjectorUtils {
         RecetasNetworkDataSource networkDataSource = RecetasNetworkDataSource.getInstance();//Fuente de datos remota
         IngredienteNetworkDataSource networkDataSourceI = IngredienteNetworkDataSource.getInstance();//Fuente de datos remota
         NoticiasNetWorkDatasource netWorkDatasourceN = NoticiasNetWorkDatasource.getInstance();
+        RestaurantesNetWorkDatasource netWorkDatasourceR = RestaurantesNetWorkDatasource.getInstance();
+        CoordenadasNetWorkDatasource netWorkDatasourceL = CoordenadasNetWorkDatasource.getInstance();
 
-        return VeganPlaceRepository.getInstance(networkDataSource, networkDataSourceI, netWorkDatasourceN, database.daoReceta(), database.daoIngrediente(), database.daoNoticia(), database.daoUsuarios());
+        return VeganPlaceRepository.getInstance(networkDataSource, networkDataSourceI, netWorkDatasourceN,netWorkDatasourceR,netWorkDatasourceL, database.daoReceta(), database.daoIngrediente(), database.daoNoticia(), database.daoUsuarios(),database.daoResult(), database.daoLocation());
     }
 
     public static RecetasViewModelFactory provideMainActivityViewModelFactoryhome(Context context) {
@@ -47,6 +52,12 @@ public class InjectorUtils {
     public static LoginViewModelFactory provideMainActivityViewModelFactorylogin(Context context) {
         VeganPlaceRepository repository = provideRepository(context.getApplicationContext());
         return new LoginViewModelFactory(repository);
+
+    }
+
+    public static HomeViewModelFactory provideMainActivityViewModelFactoryrestaurantes(Context context) {
+        VeganPlaceRepository repository = provideRepository(context.getApplicationContext());
+        return new HomeViewModelFactory(repository);
 
     }
 }

@@ -1,6 +1,7 @@
 package com.example.veganplace.ui.recetas;
 
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,12 +47,13 @@ public class AdapterRecetas extends RecyclerView.Adapter<AdapterRecetas.MyViewHo
         public Recipe mItem;
         public Ingredient mItemi;
 
-        public MyViewHolder(View v) {
+            public MyViewHolder(View v) {
             super(v);
             mView=v;
             mImageView = v.findViewById(R.id.imgreceta);
             mTextView1 = v.findViewById(R.id.nombrereceta);
             mTextView2=v.findViewById(R.id.descripcion);
+
         }
     }
 
@@ -73,12 +75,13 @@ public class AdapterRecetas extends RecyclerView.Adapter<AdapterRecetas.MyViewHo
 
 
     // Replace the contents of a view (invoked by the layout manager)
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(final AdapterRecetas.MyViewHolder holder,int position) {
 
         Glide.with(holder.itemView.getContext()).load(mDataset.get(position).getImage().toString()).into(holder.mImageView);
         holder.mTextView1.setText(mDataset.get(position).getLabel().toString());
-        holder.mTextView2.setText( holder.mTextView2.getText()+mDataset.get(position).getCalories().substring(0,6));
+        holder.mTextView2.setText("Calories: " +mDataset.get(position).getCalories().substring(0,6));
 
             holder.mView.setOnClickListener(new View.OnClickListener() {
                 @Override

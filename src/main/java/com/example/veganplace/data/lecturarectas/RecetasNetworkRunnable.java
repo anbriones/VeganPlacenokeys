@@ -1,10 +1,10 @@
-package com.example.veganplace.data.lecturaapi;
+package com.example.veganplace.data.lecturarectas;
 
+import android.util.Log;
 
 import com.example.veganplace.AppExecutors;
 import com.example.veganplace.data.modelrecetas.Example;
 import com.example.veganplace.data.modelrecetas.Hit;
-import com.example.veganplace.data.modelrecetas.Ingredient;
 import com.example.veganplace.data.modelrecetas.Recipe;
 
 import java.io.IOException;
@@ -18,20 +18,19 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 
-public class IngredientNetworkRunnable implements Runnable {
+public class RecetasNetworkRunnable implements Runnable {
     private static final String LOG_TAG = RecetasNetworkRunnable.class.getSimpleName();
-
-    private final OnIngredientLoadedListener mOnIngredientLoadedListener;
+    private final OnRecipeLoadedListener mOnRecipeLoadedListener;
 
     private List<Runnable> runList = Collections.synchronizedList(
             new ArrayList<Runnable>());
 
 
-    public IngredientNetworkRunnable(OnIngredientLoadedListener mOnIngredientLoadedListener ) {
-        this.mOnIngredientLoadedListener = mOnIngredientLoadedListener;
+
+    public RecetasNetworkRunnable(OnRecipeLoadedListener mOnRecipeLoadedListener) {
+        this.mOnRecipeLoadedListener = mOnRecipeLoadedListener;
 
     }
-
 
     @Override
     public void run() {
@@ -46,19 +45,17 @@ public class IngredientNetworkRunnable implements Runnable {
 
             Response<Example> response = call.execute();
             Example listarecetas = service.getbase().execute().body();
+
+
+          AppExecutors.getInstance().mainThread().execute(() -> Log.d(LOG_TAG, "tamaño lista:" + listarecetas.getHits().size()));
             AppExecutors.getInstance().mainThread().execute(() -> {
                 List<Recipe> recetas = new ArrayList<>();
-                List<Ingredient> ingredientes = new ArrayList<>();
-                for (Hit hit : listarecetas.getHits())
-                    for (int i = 0; i < hit.getRecipe().getIngredients().size(); i++) {
-                        Ingredient ing = hit.getRecipe().getIngredients().get(i);
-                        ing.setLabel_creator(hit.getRecipe().getLabel());
-                        ingredientes.add(ing);
-                    }
-                  mOnIngredientLoadedListener.onIngredientLoaded(ingredientes);
+                        for (Hit hit : listarecetas.getHits()) {
+                            recetas.add(hit.getRecipe());
+                            mOnRecipeLoadedListener.onRecipeLoaded(recetas);
+                        }
                     }
             );
-
 
         } catch (IOException e) {
             e.printStackTrace();

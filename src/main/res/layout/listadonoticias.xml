@@ -5,40 +5,42 @@
     android:id="@+id/RelativeLayout1"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="8dp"
-    android:orientation="vertical" >
+
+    android:orientation="vertical"
+    android:padding="8dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="wrap_content"
+
+        android:layout_width="450dp"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="46dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="-7dp"
-        android:background="@color/fondo_logo">
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="11dp"
+        android:background="@drawable/esquinas_redondeads">
 
         <ImageView
             android:id="@+id/imgnoticia"
-            android:layout_width="139dp"
-            android:layout_height="156dp"
+            android:layout_width="155dp"
+            android:layout_height="186dp"
 
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.062"
+            app:layout_constraintHorizontal_bias="0.021"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.026"
+            app:layout_constraintVertical_bias="0.032"
             tools:ignore="MissingClass" />
 
         <TextView
             android:id="@+id/nombrenoticiaa"
-            android:layout_width="187dp"
-            android:layout_height="71dp"
+            android:layout_width="180dp"
+            android:layout_height="84dp"
             android:fontFamily="@font/adamina"
             android:text="TextView"
             android:textAlignment="inherit"
@@ -48,27 +50,27 @@
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.926"
+            app:layout_constraintHorizontal_bias="0.918"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.025"
+            app:layout_constraintVertical_bias="0.032"
             tools:ignore="MissingConstraints" />
 
         <TextView
             android:id="@+id/descripcionnoticia"
-            android:layout_width="182dp"
-            android:layout_height="56dp"
-            android:layout_marginTop="12dp"
+            android:layout_width="180dp"
+            android:layout_height="75dp"
+            android:layout_marginTop="2dp"
             android:layout_marginEnd="16dp"
             android:fontFamily="@font/adamina"
             android:textColor="@color/verde_banner"
-            android:textSize="14sp"
+            android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.514"
             app:layout_constraintStart_toEndOf="@+id/imgreceta"
             app:layout_constraintTop_toBottomOf="@+id/nombrenoticiaa"
-            app:layout_constraintVertical_bias="0.0"
+            app:layout_constraintVertical_bias="0.042"
             tools:ignore="MissingConstraints" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

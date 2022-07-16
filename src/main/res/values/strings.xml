@@ -8,6 +8,7 @@
     <string name="title_mapas">Maps</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="title_detalle_receta">Recipe Details</string>
+    <string name="title_detalle_restaurante">Restaurant Details</string>
     <string name="calories">Calories : </string>
     <string name="calories2">calories </string>
     <string name="title_detalle_noticia">Details new</string>

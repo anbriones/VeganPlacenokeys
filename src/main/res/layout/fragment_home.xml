@@ -11,17 +11,18 @@
         android:id="@+id/google_map"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="wrap_content"
-        android:layout_height="631dp"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/simpleSearchView"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginTop="101dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/white_rounded"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.473"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-       android:background="@drawable/white_rounded">
+        app:layout_constraintTop_toBottomOf="@+id/simpleSearchView">
 
     </androidx.fragment.app.FragmentContainerView>
 
@@ -29,8 +30,10 @@
         android:id="@+id/simpleSearchView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
