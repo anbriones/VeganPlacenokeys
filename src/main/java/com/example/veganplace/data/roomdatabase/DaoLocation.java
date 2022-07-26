@@ -17,7 +17,8 @@ public interface DaoLocation {
     void insertarLocation(List<Location> localizaciones);
 
 
-
+    @Query("SELECT * FROM location")
+    int deleteall();
 
     @Query("SELECT * FROM Location")
     LiveData<List<Location>> getlocalizaciones();

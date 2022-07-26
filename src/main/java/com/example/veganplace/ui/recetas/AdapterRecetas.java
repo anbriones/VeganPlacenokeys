@@ -52,7 +52,7 @@ public class AdapterRecetas extends RecyclerView.Adapter<AdapterRecetas.MyViewHo
             mView=v;
             mImageView = v.findViewById(R.id.imgreceta);
             mTextView1 = v.findViewById(R.id.nombrereceta);
-            mTextView2=v.findViewById(R.id.descripcion);
+            mTextView2=v.findViewById(R.id.descripcionresenia);
 
         }
     }

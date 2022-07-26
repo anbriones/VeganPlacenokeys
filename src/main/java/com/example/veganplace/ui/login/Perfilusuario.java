@@ -15,16 +15,23 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.preference.PreferenceManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.veganplace.AppContainer;
+import com.example.veganplace.InjectorUtils;
 import com.example.veganplace.MainActivity;
 import com.example.veganplace.MyApplication;
 import com.example.veganplace.R;
+import com.example.veganplace.data.modelusuario.Resenia;
 import com.example.veganplace.data.modelusuario.User;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Perfilusuario extends AppCompatActivity {
@@ -35,7 +42,11 @@ public class Perfilusuario extends AppCompatActivity {
     Bitmap bitmap;
     File imagencorrecta;
     User user = new User();
-
+LoginViewModel loginViewModel;
+    private RecyclerView recyclerView;
+    private Adapterresenias mAdapter;
+    AppContainer appContainer;
+    private RecyclerView.LayoutManager layoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,12 +57,27 @@ public class Perfilusuario extends AppCompatActivity {
         MyApplication appState = ((MyApplication) getApplicationContext());
 
         if (MyApplication.usuario != null ) {
-
             user = MyApplication.usuario;
-
         } else {
             user = (User) getIntent().getSerializableExtra("usuario");
         }
+
+
+        recyclerView = (RecyclerView) this.findViewById(R.id.reseñas);
+        assert (recyclerView) != null;
+        recyclerView.setHasFixedSize(true);
+        layoutManager = new LinearLayoutManager(this.getApplicationContext());
+        recyclerView.setLayoutManager(layoutManager);
+        mAdapter = new Adapterresenias(new ArrayList<Resenia>());
+        recyclerView.setAdapter(mAdapter);
+        LoginViewModelFactory factorylogin = InjectorUtils.provideMainActivityViewModelFactorylogin(this.getApplicationContext());
+        appContainer = ((MyApplication) this.getApplication()).appContainer;
+        loginViewModel  = new ViewModelProvider(this, appContainer.factoryusers).get(LoginViewModel.class);
+
+        loginViewModel.getresenia().observe(this, resenias -> {
+            mAdapter.swap(resenias);
+        });
+
 
         TextView nombre = this.findViewById(R.id.nombre_user);
         nombre.setText(user.getDisplayName().toString());
@@ -114,7 +140,6 @@ public class Perfilusuario extends AppCompatActivity {
         if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && null != data) {
             Uri selectedImage = data.getData();
             imageView.setImageURI(selectedImage);
-
             bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
             saveImage(bitmap);
 
@@ -125,7 +150,6 @@ public class Perfilusuario extends AppCompatActivity {
 
 
     private void saveImage(Bitmap finalBitmap) {
-
         File path = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
         File myDir = new File(path + "/imagenes fithealth");
         if (!myDir.exists()) {

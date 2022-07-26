@@ -20,99 +20,127 @@
         app:title="@string/title_detalle_restaurante" />
 
 
-    <ImageView
-        android:id="@+id/imagenrestaurante"
-        android:layout_width="111dp"
-        android:layout_height="96dp"
-        android:layout_marginTop="36dp"
-        android:visibility="visible"
-        app:layout_constraintEnd_toEndOf="parent"
-
-        app:layout_constraintHorizontal_bias="0.17"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbarres"
-        tools:ignore="MissingClass" />
-
     <TextView
-        android:id="@+id/nombre_res"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/dir_res"
+        android:layout_width="232dp"
+        android:layout_height="86dp"
+        android:layout_marginTop="20dp"
         android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.436"
+        app:layout_constraintEnd_toStartOf="@+id/ratingnumber"
+        app:layout_constraintHorizontal_bias="0.32"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imagenrestaurante"
-        app:layout_constraintVertical_bias="0.135" />
+        app:layout_constraintTop_toBottomOf="@+id/imageres" />
 
     <TextView
         android:id="@+id/nameres"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="92dp"
-        android:layout_marginTop="96dp"
+        android:layout_width="170dp"
+        android:layout_height="97dp"
+        android:layout_marginEnd="28dp"
+        android:layout_marginBottom="56dp"
         android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/nombre_res"
+        app:layout_constraintBottom_toTopOf="@+id/dir_res"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/imagenrestaurante"
         app:layout_constraintTop_toBottomOf="@+id/toolbarres"
-        app:layout_constraintVertical_bias="0.0" />
-
+        app:layout_constraintVertical_bias="0.862" />
 
     <RatingBar
         android:id="@+id/ratingBar"
-        android:layout_width="245dp"
-        android:layout_height="49dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="44dp"
-        android:isIndicator="true"
+        android:layout_width="242dp"
+        android:layout_height="54dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="32dp"
         android:numStars="5"
-        android:rating="1.5"
-        android:stepSize="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nombre_res" />
+        app:layout_constraintTop_toBottomOf="@+id/dir_res" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/sendresenia"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Send Review"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.837"
+        app:layout_constraintHorizontal_bias="0.888"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextMultiLine" />
+        app:layout_constraintTop_toBottomOf="@+id/descripcionresenia"
+        app:layout_constraintVertical_bias="0.511" />
 
     <EditText
-        android:id="@+id/editTextTextMultiLine"
-        android:layout_width="311dp"
-        android:layout_height="215dp"
-        android:layout_marginTop="44dp"
+        android:id="@+id/descripcionresenia"
+        android:layout_width="292dp"
+        android:layout_height="101dp"
+        android:layout_marginTop="64dp"
         android:ems="10"
         android:gravity="start|top"
         android:inputType="textMultiLine"
         android:text="Write your review"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.34"
+        app:layout_constraintHorizontal_bias="0.344"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ratingBar" />
 
     <TextView
         android:id="@+id/ratingnumber"
-        android:layout_width="42dp"
-        android:layout_height="47dp"
+        android:layout_width="97dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="224dp"
         android:background="@drawable/esquinas_redondeads"
         android:backgroundTint="@color/fondo_logo"
         android:text="TextView"
         android:textAlignment="center"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/editTextTextMultiLine"
+        app:layout_constraintBottom_toTopOf="@+id/descripcionresenia"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.257"
-        app:layout_constraintStart_toEndOf="@+id/ratingBar"
-        app:layout_constraintTop_toBottomOf="@+id/nombre_res"
-        app:layout_constraintVertical_bias="0.543" />
+        app:layout_constraintHorizontal_bias="0.588"
+        app:layout_constraintStart_toEndOf="@+id/ratingBar" />
+
+    <ImageView
+        android:id="@+id/imageres"
+        android:layout_width="166dp"
+        android:layout_height="133dp"
+        android:layout_marginTop="44dp"
+        app:layout_constraintEnd_toStartOf="@+id/nameres"
+        app:layout_constraintHorizontal_bias="0.51"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbarres"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/listadoreseniasresta"
+        android:layout_width="403dp"
+        android:layout_height="370dp"
+        android:layout_marginTop="40dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/ratingBar"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <Button
+        android:id="@+id/valorar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Review"
+        app:layout_constraintBottom_toTopOf="@+id/ratingBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.55"
+        app:layout_constraintStart_toEndOf="@+id/dir_res"
+        app:layout_constraintTop_toBottomOf="@+id/ratingnumber" />
+
+    <TextView
+        android:id="@+id/messagesendreview"
+        android:layout_width="223dp"
+        android:layout_height="60dp"
+        android:text="You must start session to be able to send review"
+        android:textColor="@color/quantum_googred600"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/sendresenia"
+        app:layout_constraintHorizontal_bias="0.173"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/descripcionresenia"
+        app:layout_constraintVertical_bias="0.587" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

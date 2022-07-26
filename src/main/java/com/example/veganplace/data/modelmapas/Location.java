@@ -10,7 +10,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 @Entity(tableName = "Location")
 public class Location {
-    @PrimaryKey
+
     @NonNull
     @ColumnInfo(name = "lat")
     @SerializedName("lat")
@@ -21,6 +21,7 @@ public class Location {
     @NonNull
     @ColumnInfo(name = "lng")
     private Double lng;
+    @PrimaryKey
     @SerializedName("adress_rest")
     @Expose
     @NonNull

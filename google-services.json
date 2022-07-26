@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "638918756755",
+    "project_id": "restaurantes-351317",
+    "storage_bucket": "restaurantes-351317.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:638918756755:android:c04daa095cae4299e6c066",
+        "android_client_info": {
+          "package_name": "com.example.veganplace"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "638918756755-u5t2pjf60ghr1pbj9k12qua0v84ve49i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDZEG1RZNVZWR45f14euNosl78frMwUsAg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "638918756755-u5t2pjf60ghr1pbj9k12qua0v84ve49i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

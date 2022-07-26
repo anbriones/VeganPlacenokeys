@@ -33,11 +33,11 @@ public class RestaurantesNetWorkDatasource {
         return mDownloadedRestaurantes;
     }
 
-    public void fetchrestaurantes() {
+    public void fetchrestaurantes(String busqueda) {
         Log.d(LOG_TAG, "Fetch restaurantes started");
         // Get data from network and pass it to LiveData
         AppExecutors.getInstance().networkIO().execute(new RestaurantesNetworkRunnable(results ->
-                mDownloadedRestaurantes.postValue(results.toArray(new Result[0]))));
+                mDownloadedRestaurantes.postValue(results.toArray(new Result[0])), busqueda));
 
     }
 

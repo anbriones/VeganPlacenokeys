@@ -33,11 +33,11 @@ public class CoordenadasNetWorkDatasource {
         return mDownloadedLocalizacion;
     }
 
-    public void fetchlocation() {
+    public void fetchlocation(String busqueda) {
         Log.d(LOG_TAG, "Fetch noticias started");
         // Get data from network and pass it to LiveData
         AppExecutors.getInstance().networkIO().execute(new LocationNetworkRunnable(localizacion ->
-                mDownloadedLocalizacion.postValue(localizacion.toArray(new Location[0]))));
+                mDownloadedLocalizacion.postValue(localizacion.toArray(new Location[0])), busqueda));
 
     }
 

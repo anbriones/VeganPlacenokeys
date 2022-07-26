@@ -1,4 +1,4 @@
-package com.example.veganplace.data.roomdatabase;
+package com.example.veganplace.data.modelmapas;
 
 import androidx.room.TypeConverter;
 

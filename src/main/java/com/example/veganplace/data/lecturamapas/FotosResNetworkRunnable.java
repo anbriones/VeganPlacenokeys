@@ -1,8 +1,8 @@
 package com.example.veganplace.data.lecturamapas;
 
 import com.example.veganplace.AppExecutors;
-import com.example.veganplace.data.modelmapas.Location;
 import com.example.veganplace.data.modelmapas.Main;
+import com.example.veganplace.data.modelmapas.Photo;
 import com.example.veganplace.data.modelmapas.Result;
 
 import java.io.IOException;
@@ -16,10 +16,9 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 
-public class LocationNetworkRunnable implements Runnable {
-    private static final String LOG_TAG = LocationNetworkRunnable.class.getSimpleName();
-
-    private final OnLocationLoadedListener mOnLocationLoadedListener;
+public class FotosResNetworkRunnable implements Runnable {
+    private static final String LOG_TAG = FotosResNetworkRunnable.class.getSimpleName();
+    private final OnFotosresLoadedListener mOnFotosLoadedListener;
     private final String busqueda;
 
     private List<Runnable> runList = Collections.synchronizedList(
@@ -27,8 +26,9 @@ public class LocationNetworkRunnable implements Runnable {
 
 
 
-    public LocationNetworkRunnable(OnLocationLoadedListener mOnLocationLoadedListener, String busqueda) {
-              this.mOnLocationLoadedListener=mOnLocationLoadedListener;
+    public FotosResNetworkRunnable(OnFotosresLoadedListener mOnFotosLoadedListener, String busqueda) {
+        this.mOnFotosLoadedListener = mOnFotosLoadedListener;
+
 
         this.busqueda = busqueda;
     }
@@ -50,17 +50,24 @@ public class LocationNetworkRunnable implements Runnable {
             List<Result> listadoresults = response.body() == null ? new ArrayList<>() : response.body().getResults();
 
             AppExecutors.getInstance().mainThread().execute(() -> {
-                            List<Location> localizaciones = new ArrayList<>();
-                                 for (Result res : listadoresults){
-                                     res.getGeometry().getLocation().setAdress_rest(res.getFormattedAddress());
-                                    localizaciones.add(res.getGeometry().getLocation());
-                                }
-                    AppExecutors.getInstance().mainThread().execute(() -> mOnLocationLoadedListener.onLocationlistener(localizaciones));
+                    List<Photo> fotos = new ArrayList<>();
+                    for (Result res : listadoresults) {
+                        if(res.getPhotos()!=null) {
+                            for (int i = 0; i < res.getPhotos().size(); i++) {
+                                Photo foto = res.getPhotos().get(i);
+                                foto.setAdress_rest(res.getFormattedAddress());
+
+                                fotos.add(foto);
+                            }
+                        }
+                    }
+                    AppExecutors.getInstance().mainThread().execute(() -> mOnFotosLoadedListener.mOnFotosres(fotos));
+
 
                         }
                 );
 
-            } catch (IOException e) {
+                } catch (IOException e) {
                 e.printStackTrace();
             }
 
