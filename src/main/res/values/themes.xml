@@ -19,18 +19,25 @@
         <!-- toolbar -->
         <item name="toolbarStyle">@style/Widget.MaterialComponents.Toolbar.PrimarySurface</item>
         <item name="actionOverflowButtonStyle" tools:targetApi="l">?attr/colorPrimary</item>
-        <item name="toolbarNavigationButtonStyle" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="toolbarNavigationButtonStyle" tools:targetApi="l">?attr/colorPrimaryVariant
+        </item>
         <item name="android:navigationBarColor" tools:targetApi="l">?attr/colorPrimary</item>
         <!-- menús -->
         <item name="popupTheme" tools:targetApi="l">?attr/colorOnSecondary</item>
 
 
-
     </style>
 
-    <style name="Theme.ButtonChanger"
-        parent="Theme.AppCompat.DayNight.NoActionBar">
+    <style name="Theme.ButtonChanger" parent="Theme.AppCompat.DayNight.NoActionBar"></style>
+
+    <style name="Theme.VeganPlace.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
     </style>
+
+    <style name="Theme.VeganPlace.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.VeganPlace.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 
 </resources>

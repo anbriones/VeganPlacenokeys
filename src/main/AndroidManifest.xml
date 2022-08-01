@@ -4,20 +4,19 @@
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-
-
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <uses-permission android:name="android.permission.INTERNET" /> <!-- Add read permission -->
-
-
     <queries>
         <intent>
             <action android:name="android.intent.action.GET_CONTENT" />
-            <data android:mimeType="image/*"/>
-        </intent>
 
+            <data android:mimeType="image/*" />
+        </intent>
     </queries>
+
+
     <application
         android:name=".MyApplication"
         android:icon="@mipmap/ic_launcher"
@@ -25,18 +24,16 @@
         android:requestLegacyExternalStorage="true"
         android:theme="@style/Theme.VeganPlace">
 
-        <activity android:name=".ui.home.Restaurant_detail"></activity>
-
-        <activity android:name=".ui.login.Perfilusuario"></activity>
-
-        <activity android:name=".ui.login.Registro"></activity>
-
-        <activity android:name=".Informacion"></activity>
-
+        <activity android:name=".ui.home.Restaurant_detail" />
+        <activity android:name=".ui.login.Perfilusuario" />
+        <activity android:name=".ui.login.Registro" />
+        <activity android:name=".Informacion" />
+        <activity
+            android:name=".ui.social.Mandarmensaje"
+            android:label="@string/title_send_messages" />
         <activity
             android:name=".ui.login.LoginActivity"
             android:label="@string/title_activity_login" />
-
         <activity android:name=".ui.noticias.NoticiaenlaWeb" />
         <activity
             android:name=".ui.detallesreceta.detallesreceta"

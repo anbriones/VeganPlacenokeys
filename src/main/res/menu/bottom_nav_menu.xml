@@ -20,5 +20,9 @@
         android:id="@+id/navigation_restaurantes"
         android:icon="@drawable/ic_baseline_reviews_24"
         android:title="@string/title_restaurantes" />
+    <item
+        android:id="@+id/navigation_chat"
+        android:icon="@drawable/ic_round_user"
+        android:title="@string/title_chat" />
 
 </menu>
