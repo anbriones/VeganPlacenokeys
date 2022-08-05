@@ -192,4 +192,20 @@ else{
         intentmandarmendaje2.putExtra("user", (Serializable) user);
         startActivity(intentmandarmendaje2) ;
     }
+
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+    }
 }

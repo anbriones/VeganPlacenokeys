@@ -11,6 +11,7 @@ import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,11 +29,9 @@ import com.example.veganplace.AppContainer;
 import com.example.veganplace.InjectorUtils;
 import com.example.veganplace.MyApplication;
 import com.example.veganplace.R;
-import com.example.veganplace.data.modelmapas.Photo;
 import com.example.veganplace.data.modelmapas.Result;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -50,13 +49,12 @@ public class HomeFragment extends Fragment implements
         GoogleMap.OnMyLocationClickListener,  ActivityCompat.OnRequestPermissionsResultCallback {
     private static final int LOCATION_REQUEST_CODE = 1;
     private HomeViewModel homeViewModel;
-    private MapView mMapView;
     private AppContainer appContainer;
-    private GoogleMap map;
-    private Photo foto;
+    GoogleMap map;
     private String busqueda;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
     private HomeViewModelFactory factory;
+    Context context;
 
     /**
      * Flag indicating whether a requested permission has been denied after returning in {@link
@@ -77,6 +75,7 @@ public class HomeFragment extends Fragment implements
         appContainer = ((MyApplication) this.getActivity().getApplication()).appContainer;
         homeViewModel = new ViewModelProvider(this, appContainer.factoryrestaurantes).get(HomeViewModel.class);
 
+
         // Initialize map fragment
         SupportMapFragment supportMapFragment = (SupportMapFragment)
                 getChildFragmentManager().findFragmentById(R.id.google_map);
@@ -86,8 +85,9 @@ public class HomeFragment extends Fragment implements
 
         @Override
             public void onMapReady(GoogleMap googleMap) {
-                map = googleMap;
-                MapsInitializer.initialize(getContext());
+
+            map=googleMap;
+                MapsInitializer.initialize(getActivity().getApplicationContext());
                 EditText bus = inflatedView.findViewById(R.id.busquedaciudad);
                 Button searchButton = inflatedView.findViewById(R.id.butonlupa);
                 LatLngBounds spainbounds = new LatLngBounds(
@@ -95,18 +95,32 @@ public class HomeFragment extends Fragment implements
                         new LatLng(40, 2)  // NE bounds
                 );
                 //Se muestra el mapa del mundo centrado en las coordenadas que comprenden España
-                map.moveCamera(CameraUpdateFactory.newLatLngZoom(spainbounds.getCenter(), 5));
-
-
-                   // Activo el marcador de la posición actual
+            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(spainbounds.getCenter(), 5));
+            // Activo el marcador de la posición actual
                     enableMyLocation();
 
                 searchButton.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
+                        googleMap.clear();
                         busqueda = bus.getText().toString();
                         homeViewModel.setbusqueda(busqueda);
-                        homeViewModel.onRefresh();
-                        mostrarmarkers(map);
+                    homeViewModel.onRefresh();
+                        homeViewModel.getlocalizaciones().observe(getActivity(), localizaciones -> {
+                              for (int j = 0; j < localizaciones.size(); j++) {
+                                LatLng posicion = new LatLng(localizaciones.get(j).getLat(), localizaciones.get(j).getLng());
+                                Log.d(LOG_TAG,"dir loca"+localizaciones.get(j).getAdress_rest() );
+
+                                  googleMap.addMarker(new MarkerOptions().position(posicion).title(localizaciones.get(j).getAdress_rest()));
+                                //este código solo funciona cuando no se ha dibujado nada en el mapa, en el momento que el mapa ha mostrado una vez los iconos deja de funcionar.
+                              /* googleMap.addMarker(new MarkerOptions().position(posicion).title(localizaciones.get(j).getAdress_rest())
+                                        .icon(bitmapDescriptorFromVector(getContext(), R.drawable.ic_baseline_eco_24)));*/
+
+                            }
+
+
+
+                        });
+
                     }
                 });
 
@@ -133,21 +147,21 @@ public class HomeFragment extends Fragment implements
     public void mostrarmarkers(GoogleMap mMap) {
         mMap.clear();
         homeViewModel.getlocalizaciones().observe(getActivity(), localizaciones -> {
-            if(localizaciones!=null && localizaciones.size()>0) {
-                for (int j = 0; j < localizaciones.size(); j++) {
-                    LatLng posicion = new LatLng(localizaciones.get(j).getLat(), localizaciones.get(j).getLng());
-                    mMap.addMarker(new MarkerOptions().position(posicion).title(localizaciones.get(j).getAdress_rest())
-                            .icon(bitmapDescriptorFromVector(getActivity(), R.drawable.ic_baseline_eco_24)));
-                }
+            for (int j = 0; j < localizaciones.size(); j++) {
+                LatLng posicion = new LatLng(localizaciones.get(j).getLat(), localizaciones.get(j).getLng());
+                Log.d(LOG_TAG,"dir loca"+localizaciones.get(j).getAdress_rest() );
+                mMap.addMarker(new MarkerOptions()
+                        .position(posicion));
+
+                mMap.addMarker(new MarkerOptions().position(posicion).title(localizaciones.get(j).getAdress_rest())
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_baseline_eco_24)));
             }
 
-        });
-    }
 
-    /*
-    Código para crear BitmapDescriptor desde un vector asset
-   Fuente:  https://stackoverflow.com/questions/5699810/how-to-change-bitmap-image-color-in-android
-     */
+
+        });
+        mMap.clear();
+    }
     private BitmapDescriptor bitmapDescriptorFromVector(Context context, int vectorResId) {
         Drawable vectorDrawable = ContextCompat.getDrawable(context, vectorResId);
         vectorDrawable.setBounds(0, 0, vectorDrawable.getIntrinsicWidth(), vectorDrawable.getIntrinsicHeight());
@@ -157,12 +171,13 @@ public class HomeFragment extends Fragment implements
         return BitmapDescriptorFactory.fromBitmap(bitmap);
     }
 
+
     @SuppressLint("MissingPermission")
     private void enableMyLocation() {
         // 1. Check if permissions are granted, if so, enable the my location layer
-        if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION)
+        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED
-                || ContextCompat.checkSelfPermission(getContext(), permission.ACCESS_COARSE_LOCATION)
+                || ContextCompat.checkSelfPermission(getActivity(), permission.ACCESS_COARSE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
             map.setMyLocationEnabled(true);
             return;
@@ -192,5 +207,23 @@ public class HomeFragment extends Fragment implements
             return;
         }
         enableMyLocation();
+    }
+
+
+
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
     }
 }

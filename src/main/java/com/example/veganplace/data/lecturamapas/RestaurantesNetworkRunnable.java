@@ -37,10 +37,10 @@ public class RestaurantesNetworkRunnable implements Runnable {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        Restaurantes2 service = retrofit.create(Restaurantes2.class);
-        String query="restaurants%20in%20Spain%20vegan";
+        RestaurantesService service = retrofit.create(RestaurantesService.class);
+        String query="restaurants in Spain vegan ";
         if(!busqueda.equals("")){
-            query = query+"%20"+busqueda;
+            query = query+" "+busqueda;
             Log.d(LOG_TAG, "busqueda no es vacio :" + query);
         }
 

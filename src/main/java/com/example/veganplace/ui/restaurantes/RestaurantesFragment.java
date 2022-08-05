@@ -148,10 +148,7 @@ public void adaptar(Task<QuerySnapshot> task){
     @Override
     public void onDestroy() {
         super.onDestroy();
-
-
-
-    }
+   }
 
 
     @Override

@@ -89,8 +89,6 @@ FirebaseFirestore db=FirebaseFirestore.getInstance();
         this.mRestaurantesNetwoekdataSource = mRestaurantesNetwoekdataSource;
         this.mLocationNetworkdataSource = mCoordenadasNetworkDtaSource;
 
-
-
         dofectchdatos();
         dofetchmensajes();
 
@@ -321,8 +319,8 @@ FirebaseFirestore db=FirebaseFirestore.getInstance();
     public void setbusqueda(String busqueda) {
         filtrobusquda.setValue(busqueda);
         AppExecutors.getInstance().diskIO().execute(() -> {
-            if (isFetchNeeded(busqueda)) {
-                dofectchdatosmapa(busqueda); }
+
+                dofectchdatosmapa(busqueda);
         });
     }
 
