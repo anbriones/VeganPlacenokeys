@@ -20,7 +20,7 @@ public class LocationNetworkRunnable implements Runnable {
     private static final String LOG_TAG = LocationNetworkRunnable.class.getSimpleName();
 
     private final OnLocationLoadedListener mOnLocationLoadedListener;
-    private final String busqueda;
+    private  final String busqueda;
 
     private List<Runnable> runList = Collections.synchronizedList(
             new ArrayList<Runnable>());
@@ -29,7 +29,6 @@ public class LocationNetworkRunnable implements Runnable {
 
     public LocationNetworkRunnable(OnLocationLoadedListener mOnLocationLoadedListener, String busqueda) {
               this.mOnLocationLoadedListener=mOnLocationLoadedListener;
-
         this.busqueda = busqueda;
     }
 
@@ -41,8 +40,12 @@ public class LocationNetworkRunnable implements Runnable {
                 .build();
 
         Restaurantes2 service = retrofit.create(Restaurantes2.class);
+        String query="restaurants%20in%20Spain%20vegan";
+        if(!busqueda.equals("")){
+            query = query+"%20"+busqueda;
+        }
 
-        Call<Main> call = service.getResults("restaurants%20in%20spain%20vegan%20"+busqueda.toString(), "AIzaSyB4UmqONpL-6Y7Q1ar4BW9_CJbmkti6HFE");
+        Call<Main> call = service.getResults(query, "AIzaSyB4UmqONpL-6Y7Q1ar4BW9_CJbmkti6HFE");
 
 
         try {

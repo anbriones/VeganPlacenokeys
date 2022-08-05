@@ -9,16 +9,14 @@ import androidx.room.TypeConverters;
 
 import com.example.veganplace.data.modelmapas.ListConverter;
 import com.example.veganplace.data.modelmapas.Location;
-import com.example.veganplace.data.modelmapas.Photo;
 import com.example.veganplace.data.modelmapas.Result;
 import com.example.veganplace.data.modelnoticias.Article;
 import com.example.veganplace.data.modelrecetas.Ingredient;
 import com.example.veganplace.data.modelrecetas.Recipe;
-import com.example.veganplace.data.modelusuario.Resenia;
-import com.example.veganplace.data.modelusuario.User;
+import com.example.veganplace.data.modelusuario.ChatMessage;
 
 
-@Database(entities = {Recipe.class, Ingredient.class, Article.class, User.class, Result.class, Location.class, Photo.class, Resenia.class}, version = 1, exportSchema = false)
+@Database(entities = {Recipe.class, Ingredient.class, Article.class,  Result.class, Location.class, ChatMessage.class}, version = 1, exportSchema = false)
 @TypeConverters(ListConverter.class)
 public abstract class veganPlacebasedatos extends RoomDatabase {
     private static veganPlacebasedatos instance;
@@ -32,9 +30,8 @@ public abstract class veganPlacebasedatos extends RoomDatabase {
     public  abstract DaoReceta daoReceta();
     public  abstract DaoIngrediente daoIngrediente();
     public abstract  DaoNoticia daoNoticia();
-    public abstract DaoUsuario daoUsuarios();
-    public abstract DaoResult daoResult();
-    public abstract DaoLocation daoLocation();
-    public abstract DaoFotosRestaurant daofotosres();
-    public abstract DaoResenia daoResenia();
+    public abstract DaoResult daoResult();//restaurantes
+    public abstract DaoLocation daoLocation();//localización de los restaurantes
+    public abstract DaoChats daoChat();
+
 }

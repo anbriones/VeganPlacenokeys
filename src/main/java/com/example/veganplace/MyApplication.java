@@ -11,6 +11,7 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         //Se  crea aquí porque es necesario pasar el contexto para las bases de datos de room
+
         appContainer = new AppContainer(this);
         ThemeSetup.applyTheme(this);
     }

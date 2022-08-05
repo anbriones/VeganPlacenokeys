@@ -1,6 +1,7 @@
 package com.example.veganplace.ui.restaurantes;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.Log;
@@ -19,11 +20,13 @@ import com.example.veganplace.AppContainer;
 import com.example.veganplace.MyApplication;
 import com.example.veganplace.R;
 import com.example.veganplace.data.modelusuario.Resenia;
+import com.example.veganplace.ui.social.Conversacion;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 public class RestaurantesFragment extends Fragment implements Adapterreseniastopyworst.OnListInteractionListener{
@@ -34,7 +37,7 @@ public class RestaurantesFragment extends Fragment implements Adapterreseniastop
     private RecyclerView.LayoutManager layoutManager;
     private static final String LOG_TAG = RestaurantesFragment.class.getSimpleName();
     private Parcelable recyclerViewState;
-FirebaseFirestore db = FirebaseFirestore.getInstance();
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_restaurantes, container, false);
@@ -125,15 +128,12 @@ FirebaseFirestore db = FirebaseFirestore.getInstance();
     }
 
 public void adaptar(Task<QuerySnapshot> task){
-    mAdapter = new Adapterreseniastopyworst(new ArrayList<Resenia>());
+    mAdapter = new Adapterreseniastopyworst(new ArrayList<Resenia>(),this::onListInteraction);
     recyclerView.setAdapter(mAdapter);
     mAdapter.cargar(task);
 }
 
-    @Override
-    public void onListInteraction(Resenia resenia) {
 
-    }
 
     @Override
     public void onResume() {
@@ -154,4 +154,11 @@ public void adaptar(Task<QuerySnapshot> task){
     }
 
 
+    @Override
+    public void onListInteraction(String nombre) {
+        Intent intent = new Intent(this.getActivity(), Conversacion.class);
+        intent.putExtra("user", (Serializable) nombre);
+        startActivity(intent);
+
+    }
 }

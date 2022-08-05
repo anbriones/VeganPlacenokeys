@@ -47,8 +47,8 @@ public class AdapterNoticias extends RecyclerView.Adapter<AdapterNoticias.MyView
             super(v);
             mView=v;
             mImageView = v.findViewById(R.id.imgnoticia);
-            mTextView1 = v.findViewById(R.id.nombrenoticiaa);
-            mTextView2=v.findViewById(R.id.descripcionnoticia);
+            mTextView1 = v.findViewById(R.id.nombreuserlist);
+            mTextView2=v.findViewById(R.id.email);
         }
     }
 

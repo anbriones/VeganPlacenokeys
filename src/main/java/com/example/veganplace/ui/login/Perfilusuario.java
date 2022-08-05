@@ -2,51 +2,53 @@ package com.example.veganplace.ui.login;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.veganplace.AppContainer;
-import com.example.veganplace.InjectorUtils;
 import com.example.veganplace.MainActivity;
 import com.example.veganplace.MyApplication;
 import com.example.veganplace.R;
 import com.example.veganplace.data.modelusuario.Resenia;
 import com.example.veganplace.data.modelusuario.User;
+import com.example.veganplace.ui.home.Adapterresenias;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.List;
 
 public class Perfilusuario extends AppCompatActivity {
     ImageView imageView;
-
-    public static final int PICK_FILE = 99;
-    public static int RESULT_LOAD_IMAGE = 1;
-    Bitmap bitmap;
-    File imagencorrecta;
-    User user = new User();
-LoginViewModel loginViewModel;
+     User user = new User();
     private RecyclerView recyclerView;
     private Adapterresenias mAdapter;
     AppContainer appContainer;
     private RecyclerView.LayoutManager layoutManager;
+    List<Resenia> resenias = new ArrayList<Resenia>();
+    private static final String LOG_TAG = Perfilusuario.class.getSimpleName();
+    FirebaseStorage storage = FirebaseStorage.getInstance();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,8 +57,8 @@ LoginViewModel loginViewModel;
         Toolbar toolbar = findViewById(R.id.toolbarperfil);
         setSupportActionBar(toolbar);
         MyApplication appState = ((MyApplication) getApplicationContext());
-
-        if (MyApplication.usuario != null ) {
+//Esta actividad puede ser incializada mediante dos puntos, por lo que dependiendo desde que
+        if (MyApplication.usuario != null) {
             user = MyApplication.usuario;
         } else {
             user = (User) getIntent().getSerializableExtra("usuario");
@@ -68,29 +70,50 @@ LoginViewModel loginViewModel;
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this.getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
-        mAdapter = new Adapterresenias(new ArrayList<Resenia>());
-        recyclerView.setAdapter(mAdapter);
-        LoginViewModelFactory factorylogin = InjectorUtils.provideMainActivityViewModelFactorylogin(this.getApplicationContext());
         appContainer = ((MyApplication) this.getApplication()).appContainer;
-        loginViewModel  = new ViewModelProvider(this, appContainer.factoryusers).get(LoginViewModel.class);
 
-        loginViewModel.getresenia().observe(this, resenias -> {
-            mAdapter.swap(resenias);
-        });
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        db.collection("Resenia").whereEqualTo("name_user", MyApplication.usuario.getNombre())
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                String desc = document.getString("descripcion");
+                                String dir_res = document.getString("dir_res");
+                                String id_resenia = document.getString("id_resenia");
+                                String name_res = document.getString("name_res");
+                                String name_user = document.getString("name_user");
+                                Double valor = document.getDouble("valor");
+                                double val = (double) valor;
+                                Resenia res = new Resenia(id_resenia, name_user, name_res, dir_res, desc, val);
+                                resenias.add(res);
+                            }
+                            mAdapter = new Adapterresenias(new ArrayList<Resenia>());
+                            recyclerView.setAdapter(mAdapter);
+
+                            mAdapter.swap(resenias);
+                            Log.d(LOG_TAG, "tam resenias" + resenias.size());
+                        } else {
+                            Log.d(LOG_TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+
+                });
 
 
         TextView nombre = this.findViewById(R.id.nombre_user);
-        nombre.setText(user.getDisplayName().toString());
+        nombre.setText(user.getNombre().toString().toUpperCase().substring(0,1)+user.getNombre().toString().substring(1,user.getNombre().length()));
 
 
         ImageButton logout = findViewById(R.id.logout);
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
-               MyApplication.usuario=null;
+                MyApplication.usuario = null;
                 SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(Perfilusuario.this);
-
-
                 SharedPreferences.Editor editor = preferences.edit();
                 editor.putString("Username", "Sin definir"); //This is just an example, you could also put boolean, long, int or floats
                 editor.commit();
@@ -100,77 +123,32 @@ LoginViewModel loginViewModel;
         });
 
 
-
         imageView = (ImageView) findViewById(R.id.img_user);
-        File path = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        File directory = new File(path + "/imagenes fithealth/"+MyApplication.usuario.getDisplayName());
-        if (directory.exists()) {
-            File files[] = directory.listFiles();
-            if (files.length >= 1) {
-                String numCadena = String.valueOf(files.length);
+        String url = user.getDirimagen().toString();
 
-                if (files != null && files.length >= 1) {
-                    for (int i = 0; i < files.length; i++) {
-                        if (i == (files.length) - 1) {
-                            imagencorrecta = files[i];
-                        }
-                    }
-                }
-                String filePath = imagencorrecta.getAbsolutePath();
-                Bitmap bitmap = BitmapFactory.decodeFile(filePath);
-                imageView.setImageBitmap(bitmap);
-            }
-        }
-        ImageButton buttonLoadImage = findViewById(R.id.botonimagen);
-        buttonLoadImage.setOnClickListener(new View.OnClickListener() {
+
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference ref = storage.getReference();
+
+        ref.child(url).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
-            public void onClick(View arg0) {
-                Intent i = new Intent(
-                        Intent.ACTION_PICK,
-                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(i, RESULT_LOAD_IMAGE);
+            public void onSuccess(Uri uri) {
+                Glide.with(getApplicationContext())
+                        .load(uri)
+                        .fitCenter()
+                        .override(400, 400)// look here
+                        .into(imageView);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                Log.d(LOG_TAG, "LA URI es: " + ref.toString(), exception);
             }
         });
+
+
     }
 
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && null != data) {
-            Uri selectedImage = data.getData();
-            imageView.setImageURI(selectedImage);
-            bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
-            saveImage(bitmap);
-
-        }
-    }
-
-
-
-
-    private void saveImage(Bitmap finalBitmap) {
-        File path = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        File myDir = new File(path + "/imagenes fithealth");
-        if (!myDir.exists()) {
-            myDir.mkdirs();
-        }
-        String imageName = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss").format(new Date());
-
-        String fname = "Image-" + imageName + ".jpg";
-        File file = new File(myDir, fname);
-        if (file.exists())
-            file.delete();
-        try {
-            FileOutputStream out = new FileOutputStream(file);
-            finalBitmap.compress(Bitmap.CompressFormat.JPEG, 90, out);
-            out.flush();
-            out.close();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
     @Override
     public void onResume() {

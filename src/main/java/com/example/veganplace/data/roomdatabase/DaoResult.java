@@ -29,6 +29,9 @@ public interface DaoResult {
     @Query("SELECT * FROM result")
     LiveData<List<Result>> getrestaurantes();
 
+    @Query("SELECT * FROM result")
+    List<Result> getrestauranteslist();
+
     @Query("SELECT count(*) FROM result")
     int getNumberRestaurant();
 

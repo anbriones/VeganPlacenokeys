@@ -3,23 +3,23 @@ package com.example.veganplace.ui.login;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.preference.PreferenceManager;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.example.veganplace.AppContainer;
-import com.example.veganplace.InjectorUtils;
 import com.example.veganplace.MyApplication;
 import com.example.veganplace.R;
 import com.example.veganplace.data.modelusuario.User;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.io.Serializable;
 
@@ -27,14 +27,10 @@ public class LoginActivity extends AppCompatActivity {
     EditText nombre;
     EditText password;
     Button IniciarSesion;
-    Button registrar;
-    LoginViewModel loginViewModel;
-    AppContainer appContainer;
-    LoginViewModelFactory factory;
     String nombre_g;
     String password_g;
-boolean encontrado;
-    private SwipeRefreshLayout mSwipeRefreshLayout;
+    private static final String LOG_TAG = Registro.class.getSimpleName();
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
 
     @Override
@@ -45,52 +41,48 @@ boolean encontrado;
         password = findViewById(R.id.password);
 
         IniciarSesion = findViewById(R.id.login);
-
-        factory = InjectorUtils.provideMainActivityViewModelFactorylogin(getApplicationContext());
-        appContainer = ((MyApplication) getApplication()).appContainer;
-        loginViewModel = new ViewModelProvider(this, appContainer.factoryusers).get(LoginViewModel.class);
-        encontrado=false;
-
                         IniciarSesion.setOnClickListener(new View.OnClickListener() {
-                                             @Override
-                                             public void onClick(View v) {
-                                                 nombre_g = nombre.getText().toString();
-                                                 password_g = password.getText().toString();
-                                                 if (nombre_g.isEmpty() || password_g.isEmpty()) {
-                                                     Toast.makeText(LoginActivity.this.getApplicationContext(),R.string.fields_not_filled, Toast.LENGTH_SHORT).show();
-                                                 } else {
-                                                     loginViewModel.setnombreypassword(nombre_g, password_g);
-                                                     loginViewModel.getusuarios().observe(LoginActivity.this, new Observer<User>() {
-                                                         @Override
-                                                         public void onChanged(@Nullable User user) {
-                                                             if (user != null) {
-                                                                 if(encontrado) {
-                                                                     Toast.makeText(LoginActivity.this, "Starting Login", Toast.LENGTH_SHORT).show();
-                                                                 }
-                                                                 MyApplication.usuario = user;
-                                                                 SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                                                                 SharedPreferences.Editor editor = preferences.edit();
-                                                                 editor.putString("Username", MyApplication.usuario.getDisplayName());
-                                                                 editor.commit();
-                                                                 encontrado=true;
-                                                                 Intent intentperfil = new Intent(LoginActivity.this, Perfilusuario.class);
-                                                                 intentperfil.putExtra("usuario", (Serializable) user);
-                                                                 startActivity(intentperfil);
-                                                             }
-                                                             if(!encontrado ) {
-                                                                 nombre.setText("Write the user correctly");
-                                                                 password.setText("");
-                                                             }
-                                                         }
-                                                     }
-                                                     );
-
-                                                 }
-                                             }
-                                         }
-        );
+                            @Override
+                            public void onClick(View v) {
+                                nombre_g = nombre.getText().toString();
+                                password_g = password.getText().toString();
+                                if (nombre_g.isEmpty() || password_g.isEmpty()) {
+                                    Toast.makeText(LoginActivity.this.getApplicationContext(), R.string.fields_not_filled, Toast.LENGTH_SHORT).show();
+                                } else {
+                                    db.collection("User").whereEqualTo("nombre", nombre_g).whereEqualTo("password",password_g)
+                                            .get()
+                                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                    if (task.isSuccessful()) {
+                                                        if (task.getResult().getDocuments().size()>0) {
+                                                            Log.d(LOG_TAG, "Iniciando sesion", task.getException());
+                                                            String nombre = task.getResult().getDocuments().get(0).getString("nombre");
+                                                            String password = task.getResult().getDocuments().get(0).getString("password");
+                                                            String email = task.getResult().getDocuments().get(0).getString("email");
+                                                            String imagen = task.getResult().getDocuments().get(0).getString("dirimagen");
+                                                            User user = new User(nombre,password,email,imagen);
+                                                            MyApplication.usuario = user;
+                                                            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                                                            SharedPreferences.Editor editor = preferences.edit();
+                                                            editor.putString("Username", MyApplication.usuario.getNombre());
+                                                            editor.commit();
+                                                            Intent intentperfil = new Intent(LoginActivity.this, Perfilusuario.class);
+                                                            intentperfil.putExtra("usuario", (Serializable) user);
+                                                            startActivity(intentperfil);
+                                                        }
+                                                        else{
+                                                            Toast.makeText(LoginActivity.this.getApplicationContext(), "User or password are incorrect", Toast.LENGTH_SHORT).show();
+                                                        }
+                                                    } else {
+                                                        Log.d(LOG_TAG, "Error getting documents: ", task.getException());
+                                                    }
+                                                }
+                                            });
+                                }
+                                }
+                                 });
     }
-
 
 
 

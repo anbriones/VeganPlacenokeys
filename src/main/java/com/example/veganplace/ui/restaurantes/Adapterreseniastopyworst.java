@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.veganplace.MyApplication;
 import com.example.veganplace.R;
 import com.example.veganplace.VeganPlaceRepository;
 import com.example.veganplace.data.modelusuario.Resenia;
@@ -30,11 +31,10 @@ public class Adapterreseniastopyworst extends RecyclerView.Adapter<Adapterreseni
     Context context;
 
     public interface OnListInteractionListener {
-        public void onListInteraction(Resenia resenia);
+        public void onListInteraction(String nombre);
     }
 
-
-
+    public Adapterreseniastopyworst.OnListInteractionListener mListener;
 
     // Provide a reference to the views for each data item
 // Complex data items may need more than one view per item, and
@@ -65,6 +65,12 @@ public class Adapterreseniastopyworst extends RecyclerView.Adapter<Adapterreseni
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
+    public Adapterreseniastopyworst(List<Resenia> myDataset, Adapterreseniastopyworst.OnListInteractionListener listener) {
+        mDataset = myDataset;
+mListener=listener;
+
+    }
+
     public Adapterreseniastopyworst(List<Resenia> myDataset) {
         mDataset = myDataset;
 
@@ -83,11 +89,22 @@ public class Adapterreseniastopyworst extends RecyclerView.Adapter<Adapterreseni
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(final Adapterreseniastopyworst.MyViewHolder holder, int position) {
+
         holder.mTextView1.setText( mDataset.get(position).getName_res().toString());
         holder.mTextView2.setText(mDataset.get(position).getDescripcion().toString());
         holder.mrating.setRating((float) mDataset.get(position).getValor());
         holder.mTextView3.setText(mDataset.get(position).getDir_res());
         holder.mTextView4.setText(mDataset.get(position).getName_user().substring(0,1)+"****");
+
+        holder.mTextView4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+if(MyApplication.usuario!=null){
+    if(mListener!=null) {
+        mListener.onListInteraction(mDataset.get(position).getName_user().toString());
+    }
+}            }
+        });
     }
 
 
@@ -96,6 +113,7 @@ public class Adapterreseniastopyworst extends RecyclerView.Adapter<Adapterreseni
     public int getItemCount() {
         return mDataset.size();
     }
+
 
     public void swap(List<Resenia> dataset){
         mDataset = dataset;

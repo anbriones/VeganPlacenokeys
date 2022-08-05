@@ -1,4 +1,4 @@
-package com.example.veganplace.ui.login;
+package com.example.veganplace.ui.home;
 
 
 

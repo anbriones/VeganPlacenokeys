@@ -24,6 +24,12 @@ public interface DaoNoticia {
     @Query("SELECT * FROM articulo")
     LiveData<List<Article>> getnoticias();
 
+    /*
+    Método creado para comprobar que se insertan las noticias
+     */
+    @Query("SELECT * FROM articulo")
+    List<Article> getnoticiastest();
+
 
     @Query("delete FROM articulo ")
     int eliminarnoticias();

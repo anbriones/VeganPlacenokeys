@@ -38,8 +38,13 @@ public class RestaurantesNetworkRunnable implements Runnable {
                 .build();
 
         Restaurantes2 service = retrofit.create(Restaurantes2.class);
+        String query="restaurants%20in%20Spain%20vegan";
+        if(!busqueda.equals("")){
+            query = query+"%20"+busqueda;
+            Log.d(LOG_TAG, "busqueda no es vacio :" + query);
+        }
 
-        Call<Main> call = service.getResults("restaurants%20in%20spain%20vegan%20"+busqueda.toString(), "AIzaSyB4UmqONpL-6Y7Q1ar4BW9_CJbmkti6HFE");
+        Call<Main> call = service.getResults(query, "AIzaSyB4UmqONpL-6Y7Q1ar4BW9_CJbmkti6HFE");
         try {
             Response<Main> response = call.execute();
             List<Result> listadoresults = response.body() == null ? new ArrayList<>() : response.body().getResults();

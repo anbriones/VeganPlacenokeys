@@ -73,8 +73,9 @@ public class Restaurant_detail extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        mAdapter = new Adapterreseniastopyworst(new ArrayList<Resenia>());
-        recyclerView.setAdapter(mAdapter);
+
+
+
         mostrarresenias();
 
         TextView dir = this.findViewById(R.id.dir_res);
@@ -107,14 +108,13 @@ public class Restaurant_detail extends AppCompatActivity {
             public void onClick(View v) {
                 //Add the resenia into room database
                 Resenia resenia = new Resenia();
-                resenia.setName_user(  MyApplication.usuario.getDisplayName());
+                resenia.setName_user(  MyApplication.usuario.getNombre());
                 resenia.setName_res(res.getName());
                 resenia.setDir_res(res.getFormattedAddress());
                 resenia.setDescripcion(descripcion.getText().toString());
-                resenia.setId_resenia(res.getName()+MyApplication.usuario.getDisplayName());
+                resenia.setId_resenia(res.getName()+MyApplication.usuario.getNombre());
                 resenia.setValor(((double) ratingbar.getRating()));
-                homeViewModel.insertarresenia(resenia);
-                Toast.makeText(Restaurant_detail.this, "Review registered", Toast.LENGTH_SHORT).show();
+               Toast.makeText(Restaurant_detail.this, "Review registered", Toast.LENGTH_SHORT).show();
                 button.setEnabled(false);
 
                 //Insertar en firebase
@@ -155,41 +155,40 @@ public class Restaurant_detail extends AppCompatActivity {
 
     public void mostrarresenias() {
         Result res = (Result) getIntent().getSerializableExtra("restaurantedetalle");
-        if(res!=null) {
 //Añado la resña en firebase
-            List<Resenia> resenias = new ArrayList<Resenia>();
+        List<Resenia> resenias = new ArrayList<Resenia>();
 
-            db.collection("Resenia").
-                    whereEqualTo("name_res", res.getName())
-                    .get()
-                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                            if (task.isSuccessful()) {
-                                for (QueryDocumentSnapshot document : task.getResult()) {
-                                    String desc = document.getString("descripcion");
-                                    String dir_res = document.getString("dir_res");
-                                    String id_resenia = document.getString("id_resenia");
-                                    String name_res = document.getString("name_res");
-                                    String name_user = document.getString("name_user");
-                                    Double valor = document.getDouble("valor");
-                                    double val = (double) valor;
-                                    Resenia res = new Resenia(id_resenia, name_user, name_res, dir_res, desc, val);
-                                    resenias.add(res);
-                                    Log.d(LOG_TAG, document.getId() + " => " + document.getData());
+        db.collection("Resenia").
+                whereEqualTo("name_res", res.getName())
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                String desc = document.getString("descripcion");
+                                String dir_res = document.getString("dir_res");
+                                String id_resenia = document.getString("id_resenia");
+                                String name_res = document.getString("name_res");
+                                String name_user = document.getString("name_user");
+                                Double valor = document.getDouble("valor");
+                                double val = (double) valor;
+                                Resenia res = new Resenia(id_resenia, name_user, name_res, dir_res, desc, val);
+                                resenias.add(res);
+                                Log.d(LOG_TAG, document.getId() + " => " + document.getData());
 
-                                }
-
-
-                                mAdapter.swap(resenias);
-                                Log.d(LOG_TAG, "tam resenias" + resenias.size());
-                            } else {
-                                Log.d(LOG_TAG, "Error getting documents: ", task.getException());
                             }
-                        }
+                            mAdapter = new Adapterreseniastopyworst(new ArrayList<Resenia>());
+                            recyclerView.setAdapter(mAdapter);
 
-                    });
-        }
+                            mAdapter.swap(resenias);
+                            Log.d(LOG_TAG, "tam resenias" + resenias.size());
+                        } else {
+                            Log.d(LOG_TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+
+                });
     }
 
     @Override

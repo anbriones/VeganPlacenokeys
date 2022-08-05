@@ -65,7 +65,7 @@ public class SettingsActivity extends AppCompatActivity {
 
             final EditTextPreference pref = (EditTextPreference) findPreference("Username");
             if(MyApplication.usuario!=null) {
-                pref.setText(PreferenceManager.getDefaultSharedPreferences(getContext()).getString("Username", MyApplication.usuario.getDisplayName()));
+                pref.setText(PreferenceManager.getDefaultSharedPreferences(getContext()).getString("Username", MyApplication.usuario.getNombre()));
             }
 
     }

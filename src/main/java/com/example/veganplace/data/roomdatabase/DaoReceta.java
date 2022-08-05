@@ -28,6 +28,12 @@ import static androidx.room.OnConflictStrategy.REPLACE;
         @Query("SELECT * FROM recipe")
         LiveData<List<Recipe>> getrecetas();
 
+        /*
+        Método creado para los test
+         */
+        @Query("SELECT * FROM recipe")
+        List<Recipe> getrecetaslist();
+
         @Transaction
         @Query( "SELECT * FROM Recipe" )
         public List<IngredientsInRecipe> getrecetasdeingredientes();
