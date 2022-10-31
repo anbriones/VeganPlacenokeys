@@ -71,7 +71,7 @@ public class detallesreceta extends AppCompatActivity {
         mViewModel = new ViewModelProvider(this, appContainer.factorydetalles).get(DetallesRecetasViewModel.class);
 
         mViewModel.setid(receta.getLabel());
-
+        //Se obtienen los ingredientes de cada receta y se pasan al adaptador
         mViewModel.getingredientes().observe(this, ingredientes -> {
             Log.d(LOG_TAG, "Getting datos"+ingredientes.size());
             mAdapter.swap(ingredientes);
@@ -82,9 +82,6 @@ public class detallesreceta extends AppCompatActivity {
             }
 
         });
-
-
-
      }
 
     @Override

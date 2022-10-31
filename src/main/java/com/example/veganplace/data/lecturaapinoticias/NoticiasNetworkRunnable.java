@@ -23,8 +23,6 @@ public class NoticiasNetworkRunnable implements Runnable {
     private List<Runnable> runList = Collections.synchronizedList(
             new ArrayList<Runnable>());
 
-
-
     public NoticiasNetworkRunnable(OnNoticiaLoadedListener mOnNoticiaLoadedListener) {
         this.mOnNoticiaLoadedListener = mOnNoticiaLoadedListener;
 
@@ -40,9 +38,7 @@ public class NoticiasNetworkRunnable implements Runnable {
         NoticiasService service = retrofit.create(NoticiasService.class);
         Call<Principal> call = service.getArticulos();
 
-
             try {
-
                 Response<Principal> response = call.execute();
                 Principal listadonoticias = service.getArticulos().execute().body();
 

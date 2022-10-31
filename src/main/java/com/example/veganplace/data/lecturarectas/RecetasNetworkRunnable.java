@@ -25,11 +25,8 @@ public class RecetasNetworkRunnable implements Runnable {
     private List<Runnable> runList = Collections.synchronizedList(
             new ArrayList<Runnable>());
 
-
-
     public RecetasNetworkRunnable(OnRecipeLoadedListener mOnRecipeLoadedListener) {
         this.mOnRecipeLoadedListener = mOnRecipeLoadedListener;
-
     }
 
     @Override
@@ -38,14 +35,12 @@ public class RecetasNetworkRunnable implements Runnable {
                 .baseUrl("https://api.edamam.com/api/recipes/v2/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-
         RecetasService service = retrofit.create(RecetasService.class);
         Call<Example> call = service.getbase();
         try {
 
             Response<Example> response = call.execute();
             Example listarecetas = service.getbase().execute().body();
-
 
           AppExecutors.getInstance().mainThread().execute(() -> Log.d(LOG_TAG, "tamaño lista:" + listarecetas.getHits().size()));
             AppExecutors.getInstance().mainThread().execute(() -> {
@@ -60,8 +55,6 @@ public class RecetasNetworkRunnable implements Runnable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
     }
 }
 

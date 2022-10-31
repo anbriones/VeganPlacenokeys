@@ -12,8 +12,6 @@ public class RecetasViewModel extends ViewModel  {
     private final VeganPlaceRepository mrecetasrepository;
     private final LiveData<List<Recipe>> mrecetas;
 
-
-
     public RecetasViewModel(VeganPlaceRepository recetasrepository) {
         mrecetasrepository=recetasrepository;
         mrecetas=mrecetasrepository.getrecetas();

@@ -74,8 +74,6 @@ public class Restaurant_detail extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-
-
         mostrarresenias();
 
         TextView dir = this.findViewById(R.id.dir_res);

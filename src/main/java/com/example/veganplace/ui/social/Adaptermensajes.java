@@ -188,7 +188,6 @@ public void insertarimagen(final Adaptermensajes.MyViewHolder holder, int positi
                             ref.child(url).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                 @Override
                                 public void onSuccess(Uri uri) {
-
                                     Glide.with(holder.mView)
                                             .load(uri)
                                             .fitCenter()
@@ -202,7 +201,7 @@ public void insertarimagen(final Adaptermensajes.MyViewHolder holder, int positi
                                 }
                             });
 
-                            // insertarimagen(url, holder, position);
+
                         }
                         else{
                             Log.d(LOG_TAG, "No encontrado", task.getException());

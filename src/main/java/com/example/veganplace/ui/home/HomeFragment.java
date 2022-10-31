@@ -98,28 +98,15 @@ public class HomeFragment extends Fragment implements
             googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(spainbounds.getCenter(), 5));
             // Activo el marcador de la posición actual
                     enableMyLocation();
-
+            busqueda = "";
+            homeViewModel.setbusqueda(busqueda);
+            mostrarmarkers(googleMap);
                 searchButton.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
                         googleMap.clear();
                         busqueda = bus.getText().toString();
                         homeViewModel.setbusqueda(busqueda);
-                    homeViewModel.onRefresh();
-                        homeViewModel.getlocalizaciones().observe(getActivity(), localizaciones -> {
-                              for (int j = 0; j < localizaciones.size(); j++) {
-                                LatLng posicion = new LatLng(localizaciones.get(j).getLat(), localizaciones.get(j).getLng());
-                                Log.d(LOG_TAG,"dir loca"+localizaciones.get(j).getAdress_rest() );
-
-                                  googleMap.addMarker(new MarkerOptions().position(posicion).title(localizaciones.get(j).getAdress_rest()));
-                                //este código solo funciona cuando no se ha dibujado nada en el mapa, en el momento que el mapa ha mostrado una vez los iconos deja de funcionar.
-                              /* googleMap.addMarker(new MarkerOptions().position(posicion).title(localizaciones.get(j).getAdress_rest())
-                                        .icon(bitmapDescriptorFromVector(getContext(), R.drawable.ic_baseline_eco_24)));*/
-
-                            }
-
-
-
-                        });
+                       mostrarmarkers(googleMap);
 
                     }
                 });
@@ -139,28 +126,22 @@ public class HomeFragment extends Fragment implements
                 });
             }
         });
-
         return inflatedView;
     }
-
-
     public void mostrarmarkers(GoogleMap mMap) {
         mMap.clear();
         homeViewModel.getlocalizaciones().observe(getActivity(), localizaciones -> {
+            mMap.clear();
             for (int j = 0; j < localizaciones.size(); j++) {
                 LatLng posicion = new LatLng(localizaciones.get(j).getLat(), localizaciones.get(j).getLng());
                 Log.d(LOG_TAG,"dir loca"+localizaciones.get(j).getAdress_rest() );
-                mMap.addMarker(new MarkerOptions()
-                        .position(posicion));
+                mMap.addMarker(new MarkerOptions().position(posicion).title(localizaciones.get(j).getAdress_rest()));
 
-                mMap.addMarker(new MarkerOptions().position(posicion).title(localizaciones.get(j).getAdress_rest())
-                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_baseline_eco_24)));
             }
-
-
-
         });
-        mMap.clear();
+
+
+
     }
     private BitmapDescriptor bitmapDescriptorFromVector(Context context, int vectorResId) {
         Drawable vectorDrawable = ContextCompat.getDrawable(context, vectorResId);
@@ -182,8 +163,6 @@ public class HomeFragment extends Fragment implements
             map.setMyLocationEnabled(true);
             return;
         }
-
-
     }
 
     @Override
@@ -208,9 +187,6 @@ public class HomeFragment extends Fragment implements
         }
         enableMyLocation();
     }
-
-
-
 
     @Override
     public void onDestroy() {

@@ -7,6 +7,6 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 
 public interface NoticiasService {
-    @GET("everything?q=Vegan&sortBy=popularity&apiKey=d28447470df549f7ae26560af094327d")
+    @GET("everything?q=Vegan&sortBy=popularity&apiKey=PON AQUÍ la API KEY de NEWSAPI")
     Call<Principal> getArticulos();
 }

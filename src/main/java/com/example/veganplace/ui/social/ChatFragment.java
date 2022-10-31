@@ -77,8 +77,10 @@ if(MyApplication.usuario!=null) {
     send.setTextColor(Color.BLACK);
     adaptarenviado();
     send.setOnClickListener(new View.OnClickListener() {
+
         @SuppressLint("ResourceAsColor")
         public void onClick(View v) {
+            chatViewModel.actualizar();
             users.setTextColor(Color.WHITE);
             receive.setTextColor(Color.WHITE);
             send.setTextColor(Color.BLACK);
@@ -92,6 +94,7 @@ if(MyApplication.usuario!=null) {
     receive.setOnClickListener(new View.OnClickListener() {
         @SuppressLint("ResourceAsColor")
         public void onClick(View v) {
+            chatViewModel.actualizar();
             users.setTextColor(Color.WHITE);
             receive.setTextColor(Color.BLACK);
             send.setTextColor(Color.WHITE);
@@ -152,7 +155,7 @@ else{
         recyclerView.setAdapter(mAdapterenviados);
 
         chatViewModel.setreceptor(MyApplication.usuario.getNombre());
-        chatViewModel.getsends().observe(this, chatss -> {
+        chatViewModel.getsends().observe(getActivity(), chatss -> {
             List<ChatMessage> lista = new ArrayList<ChatMessage>();
             Boolean encontrado=false;
             for(int i=0;i<chatss.size();i++) {

@@ -11,10 +11,9 @@ import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 @Entity
 public class ChatMessage implements Serializable {
-        @SerializedName("key")
+    @SerializedName("key")
     @Expose
     @ColumnInfo(name = "key")
-
     private String key;
     @SerializedName("key")
     @Expose

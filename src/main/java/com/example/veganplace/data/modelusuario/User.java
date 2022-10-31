@@ -12,12 +12,8 @@ public class User implements Serializable {
     public User() {
     }
 
-
-
     private String nombre;
-
     private String password;
-
     private String email;
     private String dirimagen;
 

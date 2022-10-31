@@ -35,3 +35,4 @@ public abstract class veganPlacebasedatos extends RoomDatabase {
     public abstract DaoChats daoChat();
 
 }
+

@@ -32,4 +32,5 @@ public class ChatViewModel extends ViewModel {
     public LiveData<List<ChatMessage>> getsends(){return mveganrepository.getsends();}
     public LiveData<List<ChatMessage>> getreceives(){return mveganrepository.getchatreceive();}
 
+
 }

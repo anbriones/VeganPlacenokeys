@@ -46,7 +46,6 @@ import java.util.Map;
 public class VeganPlaceRepository extends AppCompatActivity {
     private static final String LOG_TAG = VeganPlaceRepository.class.getSimpleName();
     private Boolean sepuede=false;
-
     // For Singleton instantiation
     private static VeganPlaceRepository sInstance;
     private final DaoReceta mrecetasdao;
@@ -63,7 +62,6 @@ FirebaseFirestore db=FirebaseFirestore.getInstance();
     private final NoticiasNetWorkDatasource mNoticiasNetworkDataSource;
     private final RestaurantesNetWorkDatasource mRestaurantesNetwoekdataSource;
     private final CoordenadasNetWorkDatasource mLocationNetworkdataSource;
-
     private final AppExecutors mExecutors = AppExecutors.getInstance();
 
     private final MutableLiveData<String> tipoFilterLiveData = new MutableLiveData<>();
@@ -90,7 +88,7 @@ FirebaseFirestore db=FirebaseFirestore.getInstance();
         this.mLocationNetworkdataSource = mCoordenadasNetworkDtaSource;
 
         dofectchdatos();
-        dofetchmensajes();
+        //dofetchmensajes();
 
 
         //
@@ -189,18 +187,18 @@ FirebaseFirestore db=FirebaseFirestore.getInstance();
     public void dofectchdatos() {
         Log.d(LOG_TAG, "Fetching recetas from Json");
         AppExecutors.getInstance().diskIO().execute(() -> {
-            mrecetasdao.eliminarrecetas();
+          //  mrecetasdao.eliminarrecetas();
             mRecetaNetworkDataSource.fetchRecetas();
         });
         Log.d(LOG_TAG, "Fetching ingredientes from Json");
         AppExecutors.getInstance().diskIO().execute(() -> {
-            mingredientesdao.eliminaringredientes();
+           // mingredientesdao.eliminaringredientes();
             mIngretaNetworkDataSource.fetchingredientes();
         });
 
         Log.d(LOG_TAG, "Fetching noticias from Json");
         AppExecutors.getInstance().diskIO().execute(() -> {
-            mnoticiasDao.eliminarnoticias();
+           // mnoticiasDao.eliminarnoticias();
             mNoticiasNetworkDataSource.fetcnoticias();
         });
     }
@@ -255,7 +253,7 @@ FirebaseFirestore db=FirebaseFirestore.getInstance();
 
     //Devuelve Todos las recetas que nos da la API, no hace falta transformación porque no recibe ningún parámetro
     public LiveData<List<Recipe>> getrecetas() {
-        return mrecetasdao.getrecetas();
+                return mrecetasdao.getrecetas();
     }
 
     //Devuelve Todos los ingredientes que nos da la API, no hace falta transformación porque no recibe ningún parámetro

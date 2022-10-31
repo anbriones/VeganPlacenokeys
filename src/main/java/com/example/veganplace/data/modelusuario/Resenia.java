@@ -4,13 +4,9 @@ public class Resenia {
 
     private String id_resenia;
     private String name_user;
-
     private String name_res;
-
     private String dir_res;
-
     private String descripcion;
-
     private double valor;
 
 

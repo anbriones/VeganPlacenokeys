@@ -45,7 +45,7 @@ public class LocationNetworkRunnable implements Runnable {
             query = query+" "+busqueda;
         }
 
-        Call<Main> call = service.getResults(query, "AIzaSyB4UmqONpL-6Y7Q1ar4BW9_CJbmkti6HFE");
+        Call<Main> call = service.getResults(query, "PON AQUÍ la API KEY ");
 
 
         try {
